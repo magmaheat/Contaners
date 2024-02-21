@@ -27,6 +27,11 @@ else ifeq ($(OS),Darwin)
 	LDFLAGS += -lstdc++ -lm
 endif
 
+# | --INSTRUCTIONS--															      |
+# | ------RUS-------																  |
+# | Если вы запускаете в первый раз, то сперва необходимо запустить цель gtest_build. |
+# | Данная цель компилирует библиотеку gtest.     !! НЕОБХОДИМО НАЛИЧИЕ CMAKE !! 	  |
+
 all: google_test
 
 gtest_build:
@@ -52,6 +57,9 @@ clean:
 	@rm -f $(OBJS) *.a *.o s21_containers_tests
 	@rm -rf *.gcda *.gcno *.info report
 
+
+
+#ПОТОМ УДАЛЮ :))))
 #FOR TESTS, PLEASE, DON'T DELETE
 test: clean
 	$(CC) $(CFLAGS) $(TEST_SRC) $(GTEST_FLAGS) -o s21_containers_tests $(LDFLAGS)
