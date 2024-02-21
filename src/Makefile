@@ -30,10 +30,10 @@ endif
 all: google_test
 
 gtest_build:
-	mv external/googletest
-	rm -rf build
-	mkdir build && mv build
-	Cmake .. && make
+	cd external/googletest && \
+	rm -rf build && \
+	mkdir build && cd build && \
+	cmake .. && make
 
 google_test: clean $(GTEST_LIB)
 	$(CC) $(CFLAGS) $(TEST_SRC) $(GTEST_INCLUDE) -o s21_containers_tests $(GTEST_LIB) $(LDFLAGS)
