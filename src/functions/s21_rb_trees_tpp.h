@@ -166,7 +166,7 @@ template<typename Key, typename T>
 void red_black_tree<Key,T>::erase(iterator pos) {
   Node *current = root_;
   Node *parent = nullptr;
-  Node *node = nullptr;
+  Node *node = root_;
   Node *child = nullptr;
   bool isFound = true;
 
@@ -189,6 +189,7 @@ void red_black_tree<Key,T>::erase(iterator pos) {
 
   if (isFound) {
     if (current->left == nullptr && current->right == nullptr && current->parent != nullptr) {
+      node = current;
       if (is_left_child(current)) {
         parent->left = nullptr;
       } else {
