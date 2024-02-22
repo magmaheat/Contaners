@@ -1,4 +1,4 @@
-CC := g++
+CC := gcc
 CFLAGS := -Wall -Werror -Wextra -std=c++17
 LDFLAGS :=
 
