@@ -22,7 +22,7 @@ namespace s21 {
     using const_reference = const key_type&;
     using size_type = size_t;
 
-    red_black_tree() : root_(nullptr), conductor(nullptr) {}
+    red_black_tree() : root_(nullptr) {}
     red_black_tree(std::initializer_list<Key> initList);
     red_black_tree(const red_black_tree &other) noexcept;
     red_black_tree(red_black_tree &&other) noexcept;
@@ -40,7 +40,7 @@ namespace s21 {
       int color;
       Node() : key(), data(), pair(), parent(nullptr), left(nullptr), right(nullptr), color(kRED) {}
       Node(const Key& k, const T& v) : key(k), data(v), pair(k, v), parent(nullptr), left(nullptr), right(nullptr), color(Color::kRED) {}
-    } Node;
+    } Node; // TODO add constructor
 
 
     enum Color {
@@ -48,30 +48,12 @@ namespace s21 {
       kBLACK
     };
 
-
-    void init_conductor() {
-      if (conductor == nullptr) {
-        conductor = new typename red_black_tree<Key, T>::Node;
-      }
-      conductor->parent = this->max();
-      conductor->key = std::numeric_limits<Key>::max();
-      conductor->data = std::numeric_limits<T>::max();
-      conductor->left = nullptr;
-      conductor->right = nullptr;
-    }
-
     class tree_iterator {
     friend class red_black_tree;
       public:
-        tree_iterator() : current_(nullptr), tree(nullptr), conductor(nullptr) {}
+        tree_iterator() : current_(nullptr), tree(nullptr) {}
 
       explicit tree_iterator(Node *node, red_black_tree<Key, T>* tree_ref) : current_(node), tree(tree_ref) {
-          conductor = new typename red_black_tree::Node;
-          conductor->parent = tree->max();
-          conductor->key = std::numeric_limits<Key>::max();
-          conductor->data = std::numeric_limits<T>::max();
-          conductor->left = nullptr;
-          conductor->right = nullptr;
         }
 
       Key operator*() const;
@@ -107,7 +89,6 @@ namespace s21 {
     protected:
       Node* current_;
       red_black_tree<Key, T>* tree;
-      Node* conductor;
 
     private:
     };
@@ -127,7 +108,6 @@ namespace s21 {
 
   protected:
     Node* root_;
-    Node* conductor;
     iterator tree_begin() { return iterator (min(), this); }
     iterator tree_end() { return iterator(nullptr, this); }
     size_t count_elem(iterator pos);
@@ -156,6 +136,6 @@ namespace s21 {
   };
 }  // namespace s21
 
-#include "../functions/s21_rb_trees.tpp"
+#include "../functions/s21_rb_trees_tpp.h"  // TODO transform to .tpp
 
 #endif  // CPP2_S21_CONTAINERS_1_S21_RED_BLACK_FORESTS_H_

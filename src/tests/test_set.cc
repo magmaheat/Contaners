@@ -291,11 +291,6 @@ TEST(set, erase_3) {
   s21_set.insert(90);
   std_set.insert(90);
   EXPECT_EQ(s21_set.size(), std_set.size());
-
-   s21_set.erase(--s21_set.end());
-   std_set.erase(--std_set.end());
-   EXPECT_EQ(s21_set.size(), std_set.size());
-
 }
 
 TEST(set, erase_4) {

@@ -17,36 +17,10 @@ namespace s21 {
     using map_temp = map<key_type, mapped_type>;
 
     map() : red_black_tree<key_type, mapped_type>() {};
-    map(std::initializer_list<value_type> initList) {
-      this->root_ = nullptr;
-      for (const auto &item : initList) {
-        this->insert_local(item.first, item.second);
-      }
-      this->init_conductor();
-    }
-
-    map(const map &other) noexcept {
-      this->root_ = nullptr;
-      add(other.root);
-      this->conductor = other.conductor;
-    }
-
-    map(map &&other) noexcept {
-      if (this != &other) {
-        this->root_ = other.root_;
-        other.root_ = nullptr;
-        this->conductor = other.conductor;
-        delete other.conductor;
-        other.conductor = nullptr;
-      }
-    }
-
-    ~map() {
-      if (this->root_ != nullptr) {
-        free(this->root_);
-        this->root_ = nullptr;
-      }
-    }
+    map(std::initializer_list<value_type> initList) : red_black_tree<Key, T>(initList){}
+    map(const map &other) : red_black_tree<Key, T>(other) {}
+    map(map &&other) noexcept : red_black_tree<Key, T>(std::move(other)){}
+    ~map() = default;
 
     map<key_type, T> &operator=(map<key_type, mapped_type> &&other) noexcept {
       if (this != &other) {

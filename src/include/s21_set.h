@@ -8,55 +8,10 @@ class set : public red_black_tree<Key, Key> {
 public:
   using iterator = typename red_black_tree<Key, Key>::iterator;
   set() : red_black_tree<Key, Key>() {}
-  set(std::initializer_list<Key> initList) {
-      this->root_ = nullptr;
-      for (const auto &item : initList) {
-        this->insert_local(item);
-      }
-      this->init_conductor();
-    }
-
-  set(const set &other) noexcept : red_black_tree<Key, Key>(other) {
-    if (this != &other) {
-      this->root_ = nullptr;
-      this->add(other.root_);
-      this->conductor = other.conductor;
-    }
-
-  }
-
-  set(set &&other) noexcept : red_black_tree<Key, Key>(other) {
-    if (this != &other) {
-      this->root_ = other.root_;
-      other.root_ = nullptr;
-      this->conductor = other.conductor;
-      delete other.conductor;
-      other.conductor = nullptr;
-    }
-  }
-
-  ~set() {
-    if (this->root_ != nullptr) {
-      this->free(this->root_);
-      this->root_ = nullptr;
-    }
-  }
-
-
-//
-//  typedef struct Node {
-//    Key key;
-//    Key data;
-//    size_t count;
-//    int replay;
-////      Trees *grand;
-//    Node *parent;
-//    Node *left;
-//    Node *right;
-//    int color;
-//  } Node;
-
-
+  set(std::initializer_list<Key> initList) : red_black_tree<Key, Key>(initList) {}
+  set(const set &other) : red_black_tree<Key, Key>(other) {}
+  set(set &&other) noexcept : red_black_tree<Key, Key>(std::move(other)) {}
+  ~set() = default;
 
   set<Key> &operator=(set<Key> &&other) noexcept {
     red_black_tree<Key, Key>::operator=(std::move(other));
@@ -79,12 +34,7 @@ public:
   }
 
   iterator begin() { return iterator (this->min(), this); }
-  iterator end() {
-    if (this->conductor) {
-      this->conductor->parent = this->max();
-    }
-    return iterator(this->conductor, this);
-  }
+  iterator end() {return iterator(nullptr, this);}
 
 
 private:
