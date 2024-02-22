@@ -108,6 +108,7 @@ namespace s21 {
 
   protected:
     Node* root_;
+    size_t count_element_ = 0;
     iterator tree_begin() { return iterator (min(), this); }
     iterator tree_end() { return iterator(nullptr, this); }
     size_t count_elem(iterator pos);

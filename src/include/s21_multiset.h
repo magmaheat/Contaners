@@ -10,9 +10,21 @@ namespace s21 {
     using iterator = typename red_black_tree<Key, Key>::iterator;
 
     multiset() : red_black_tree<Key, Key>() {}
-    multiset(std::initializer_list<Key> initList) : red_black_tree<Key, Key>(initList){}
+    multiset(std::initializer_list<Key> initList) {
+      this->root_ = nullptr;
+      for (const auto &item: initList) {
+        this->insert_local(item);
+      }
+    }
     multiset(const multiset &other) noexcept : red_black_tree<Key, Key>(other) {}
-    multiset(multiset &&other) noexcept : red_black_tree<Key, Key>(other){}
+    multiset(multiset &&other) noexcept {
+      if (this != &other) {
+        this->root_ = other.root_;
+        this->count_element_ = other.count_element_;
+        other.root_ = nullptr;
+        other.count_element_ = 0;
+      }
+    }
     ~multiset() = default;
 
     multiset<Key> &operator=(multiset<Key> &&other) noexcept {
@@ -27,9 +39,8 @@ namespace s21 {
       return *this;
     }
 
-  protected:
     iterator insert(const Key& value) {
-      return this->insert_local(value).first;
+      return iterator(this->insert_local(value).first, this);
     }
 
     iterator find(const Key &value) {
@@ -65,7 +76,7 @@ namespace s21 {
     iterator end() {return iterator(nullptr, this);}
 
   private:
-    int get_mode() const override{
+    int get_mode() const override {
       return 2;
     }
   };

@@ -22,7 +22,9 @@ namespace s21 {
   red_black_tree<Key, T>::red_black_tree(red_black_tree &&other) noexcept {
     if (this != &other) {
       root_ = other.root_;
+      count_element_ = other.count_element_;
       other.root_ = nullptr;
+      other.count_element_ = 0;
     }
   }
 
@@ -34,10 +36,13 @@ namespace s21 {
         free(root_);
       }
       root_ = other.root_;
+      count_element_ = other.count_element_;
       other.root_ = nullptr;
+      other.count_element_ = 0;
     } else {
       free(root_);
       root_ = nullptr;
+      other.count_element_ = 0;
     }
 
     return (*this);
@@ -51,6 +56,7 @@ red_black_tree<Key, T> &red_black_tree<Key, T>::operator=(const red_black_tree &
       root_ = nullptr;
     }
     add(root_);
+    count_element_ = other.count_element_;
   }
 
   return *this;
@@ -223,6 +229,7 @@ void red_black_tree<Key,T>::erase(iterator pos) {
       }
       node = child;
     }
+    count_element_--;
     delete node;
     node = nullptr;
   }
@@ -277,14 +284,18 @@ typename std::pair<typename red_black_tree<Key, T>::Node*, bool> red_black_tree<
     }
   }
 
+//  std::cout << this->get_mode() << std::endl;
   new_node->parent = parent;
   if (parent == nullptr) {
     new_node->color = Color::kBLACK;
     root_ = new_node;
+    count_element_++;
   } else if (new_node->key < parent->key) {
     parent->left = new_node;
+    count_element_++;
   } else if ((new_node->key > parent->key && result) || (get_mode() == 2)){  // add 2 = kMultiset
     parent->right = new_node;
+    count_element_++;
   } else {
     if (get_mode() == 4) {
       parent->data = new_node->data;
@@ -464,12 +475,14 @@ void red_black_tree<Key,T>::clear() {
   if (root_ != nullptr) {
     free(root_);
     root_ = nullptr;
+    count_element_ = 0;
   }
 };
 
 template<typename Key, typename T>
 void red_black_tree<Key,T>::swap(red_black_tree &other) {
   std::swap(root_, other.root_);
+  std::swap(count_element_, other.count_element_);
 };
 
 template<typename Key, typename T>
@@ -487,6 +500,7 @@ void red_black_tree<Key,T>::merge(red_black_tree<Key,T> &other) {
 
     free(other.root_);
     other.root_ = nullptr;
+    other.count_element_ = 0;
     if (remainder.size()) {
       for (int i = 0; i != (int)remainder.size(); ++i) {
         other.insert_local(remainder[i].first, remainder[i].second);
@@ -508,19 +522,7 @@ bool red_black_tree<Key,T>::empty() {
 
 template<typename Key, typename T>
 size_t red_black_tree<Key,T>::size() {
-  size_t count = 0;
-  int stop = 0;
-  iterator it = this->tree_begin();
-  if (it.current_) {
-    while (it.current_ && stop < 30) {
-//      std::cout << it.current_->key << std::endl;
-      stop++;
-      count++;
-      it++;
-    }
-  }
-
-  return count;
+  return count_element_;
 }
 
 template<typename Key, typename T>
