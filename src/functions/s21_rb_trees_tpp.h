@@ -162,7 +162,7 @@ void red_black_tree<Key,T>::free(Node *&node) {
 template<typename Key, typename T>
 void red_black_tree<Key,T>::add(const Node *node) {
   if (node != nullptr) {
-    this->insert_local(node->key);
+    this->insert_local(node->key, node->data);
     add(node->left);
     add(node->right);
   }

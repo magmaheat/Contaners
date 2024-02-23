@@ -11,20 +11,16 @@ namespace s21 {
 
     multiset() : red_black_tree<Key, Key>() {}
     multiset(std::initializer_list<Key> initList) {
-      this->root_ = nullptr;
       for (const auto &item: initList) {
         this->insert_local(item);
       }
     }
-    multiset(const multiset &other) noexcept : red_black_tree<Key, Key>(other) {}
-    multiset(multiset &&other) noexcept {
-      if (this != &other) {
-        this->root_ = other.root_;
-        this->count_element_ = other.count_element_;
-        other.root_ = nullptr;
-        other.count_element_ = 0;
-      }
+
+    multiset(const multiset &other) : red_black_tree<Key, Key>() {
+      this->add(other.root_);
     }
+
+    multiset(multiset &&other) noexcept : red_black_tree<Key, Key>(std::move(other)) {}
     ~multiset() = default;
 
     multiset<Key> &operator=(multiset<Key> &&other) noexcept {

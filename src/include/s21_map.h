@@ -17,9 +17,17 @@ namespace s21 {
     using map_temp = map<key_type, mapped_type>;
 
     map() : red_black_tree<key_type, mapped_type>() {};
-    map(std::initializer_list<value_type> initList) : red_black_tree<Key, T>(initList){}
-    map(const map &other) : red_black_tree<Key, T>(other) {}
-    map(map &&other) noexcept : red_black_tree<Key, T>(std::move(other)){}
+    map(std::initializer_list<value_type> initList) {
+      for (const auto &item: initList) {
+        this->insert_local(item.first, item.second);
+      }
+    }
+
+    map(const map &other) : red_black_tree<Key, T>() {
+      this->add(other.root_);
+    }
+
+    map(map &&other) noexcept : red_black_tree<Key, T>(std::move(other)) {}
     ~map() = default;
 
     map<key_type, T> &operator=(map<key_type, mapped_type> &&other) noexcept {
@@ -98,12 +106,7 @@ namespace s21 {
     using iterator = map_iterator;
 
     iterator begin() {return iterator(this->min(), this);}
-    iterator end() {
-      if (this->conductor) {
-        this->conductor->parent = this->max();
-      }
-      return iterator(this->conductor, this);
-    }
+    iterator end() {return iterator(nullptr, this);}
 
     std::pair<iterator, bool>insert(const value_type& value) {
       std::pair<typename red_black_tree<Key, T>::Node*, bool> return_insert = this->insert_local(value.first, value.second);
