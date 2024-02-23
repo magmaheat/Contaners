@@ -6,7 +6,7 @@
 
 #include "../include/s21_multiset.h"
 
-#include "../s21_containers.h"
+#include "../s21_containersplus.h"
 
 TEST(MultiSetTest, DefaultConstructor) {
   s21::multiset<int> myMultiset;

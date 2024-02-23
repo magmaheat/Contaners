@@ -5,6 +5,7 @@
 #include "../include/s21_map.h"
 #include "../include/s21_multiset.h"
 #include "../include/s21_set.h"
+#include "../include/s21_array.h"
 #include <vector>
 
 int main() {
