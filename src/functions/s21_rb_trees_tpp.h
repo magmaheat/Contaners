@@ -74,19 +74,11 @@ red_black_tree<Key,T>::~red_black_tree() {
 template<typename Key, typename T>
 typename red_black_tree<Key,T>::iterator &
 red_black_tree<Key,T>::iterator::operator--() {
-//    Node* temp = current_;
   if (current_) {
-    if (current_->left && !current_->left->right) {
-      current_ = current_->left;
-    } else if (current_->left) {
-      current_ = current_->left;
-      while (current_->right) {
-        current_ = current_->right;
-      }
-    } else if (current_->parent && current_->parent->key < current_->key) {
-      current_ = current_->parent;
+    if (current_->left != nullptr) {
+      current_ = tree->max(current_->left);
     } else {
-      while (current_->parent && current_->key < current_->parent->key) {
+      while (tree->is_left_child(current_)) {
         current_ = current_->parent;
       }
       current_ = current_->parent;
@@ -115,24 +107,14 @@ Key red_black_tree<Key,T>::iterator::operator*() const {
 template<typename Key, typename T>
 typename red_black_tree<Key,T>::iterator &
 red_black_tree<Key,T>::iterator::operator++() {
-
   if (current_) {
-    if (current_->right && !current_->right->left) {
-      current_ = current_->right;
-    } else if (current_->right) {
-      current_ = current_->right;
-      while (current_->left) {
-        current_ = current_->left;
-      }
-    } else if (current_->parent && current_->key < current_->parent->key) {
-      current_ = current_->parent;
-    } else if (current_->parent && current_->key > current_->parent->key) {
-      while (current_->parent && current_->key > current_->parent->key) {
+    if (current_->right != nullptr) {
+      current_ = tree->min(current_->right);
+    } else {
+      while (current_->parent && !tree->is_left_child(current_)) {
         current_ = current_->parent;
       }
       current_ = current_->parent;
-    }  else {
-      current_ = nullptr;
     }
   }
 
@@ -256,21 +238,12 @@ void red_black_tree<Key, T>::print_tree(Node* node, int indent) {
 template<typename Key, typename T>
 typename std::pair<typename red_black_tree<Key, T>::Node*, bool> red_black_tree<Key,T>::insert_local(const Key &key, const T &value) {
   bool result = true;
-//    Node *new_node = new Node;
   Node *new_node = new Node(key, value);
-//    new_node->data = value;
-//    new_node->key = key;
-//    new_node->color = Color::kRED;
-//    new_node->parent = nullptr;
-//    new_node->left = nullptr;
-//    new_node->right = nullptr;
-//    new_node->pair = std::pair<Key, T>(key, value);
   Node *copy_node = nullptr;
-
   Node *current = root_;
   Node *parent = nullptr;
 
-  while ((current != nullptr) && (result || get_mode() != 1)) {
+  while (current != nullptr) {
     parent = current;
 
     if (key < current->key) {
@@ -280,6 +253,7 @@ typename std::pair<typename red_black_tree<Key, T>::Node*, bool> red_black_tree<
     } else {
       copy_node = current;
       current = current->right;
+      new_node->id++;
       result = false;
     }
   }
@@ -290,7 +264,7 @@ typename std::pair<typename red_black_tree<Key, T>::Node*, bool> red_black_tree<
     new_node->color = Color::kBLACK;
     root_ = new_node;
     count_element_++;
-  } else if (new_node->key < parent->key) {
+  } else if ((new_node->key < parent->key) && (result || get_mode() == 2)) {
     parent->left = new_node;
     count_element_++;
   } else if ((new_node->key > parent->key && result) || (get_mode() == 2)){  // add 2 = kMultiset
@@ -320,7 +294,8 @@ template<typename Key, typename T>
 void red_black_tree<Key, T>::recolor_and_rotate(Node *node) {
   Node *parent = node->parent;
 
-  if (node->key != root_->key && parent->color == kRED) {
+  if (((node->key != root_->key) || (node->key == root_->key && node->id != root_->id))
+  && (parent->color == kRED)) {
     Node *grand = node->parent->parent;
     Node *uncle = (is_left_child(parent)) ? grand->right : grand->left;
     if (uncle && uncle->color == kRED) {
@@ -413,7 +388,8 @@ void red_black_tree<Key, T>::swap_colors(Node *a) {
 template<typename Key, typename T>
 bool red_black_tree<Key, T>::is_left_child(const Node *node) {
   bool result = false;
-  if (node->parent && node->parent->left && node->key == node->parent->left->key) { // TODO node->parent??
+  if (node->parent && node->parent->left && node->key == node->parent->left->key &&
+  node->id == node->parent->left->id) { // TODO node->parent??
     result = true;
   }
   return result;
@@ -449,8 +425,8 @@ bool red_black_tree<Key,T>::contains(const Key &value) {
 }
 
 template<typename Key, typename T>
-typename red_black_tree<Key,T>::Node *red_black_tree<Key,T>::min() {
-  Node *current = root_;
+typename red_black_tree<Key,T>::Node *red_black_tree<Key,T>::min(Node *node) {
+  Node *current = node;
   if (current) {
     while (current->left != nullptr) {
       current = current->left;
@@ -460,8 +436,8 @@ typename red_black_tree<Key,T>::Node *red_black_tree<Key,T>::min() {
 };
 
 template<typename Key, typename T>
-typename red_black_tree<Key,T>::Node *red_black_tree<Key,T>::max() {
-  Node *current = root_;
+typename red_black_tree<Key,T>::Node *red_black_tree<Key,T>::max(Node *node) {
+  Node *current = node;
   if (current) {
     while (current->right != nullptr) {
       current = current->right;
@@ -526,8 +502,17 @@ size_t red_black_tree<Key,T>::size() {
 }
 
 template<typename Key, typename T>
-size_t red_black_tree<Key,T>::count_elem(iterator pos) {
-  return pos.current_->count; // TODO сделать метод
+size_t red_black_tree<Key,T>::count_elem(const Key &key) {
+  auto start = tree_begin();
+  size_t count = 0;
+  while (start != this->tree_end()) {
+    if (start.current_->key == key) {
+      count++;
+    }
+    start++;
+  }
+
+  return count;
 }
 
 }  // namespace s21

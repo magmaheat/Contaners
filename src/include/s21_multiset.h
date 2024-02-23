@@ -43,7 +43,7 @@ namespace s21 {
       return iterator(this->find_local(value), this);
     }
 
-    size_t count(const Key& key) { return this->count_elem(this->find(key)); }
+    size_t count(const Key& key) { return this->count_elem(key); }
 
     std::pair<iterator, iterator> equal_range(const Key& key){
       iterator found(this->find(key));
@@ -62,13 +62,13 @@ namespace s21 {
 
     iterator upper_bound(const Key& key) {
       iterator result = lower_bound(key);
-      while (result != this->end() && *result != key) {
+      while (result != this->end() && *result == key) {
         result++;
       }
       return result;
     }
 
-    iterator begin() { return iterator (this->min(), this); }
+    iterator begin() { return iterator (this->min(this->root_), this); }
     iterator end() {return iterator(nullptr, this);}
 
   private:

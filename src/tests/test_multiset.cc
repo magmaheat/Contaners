@@ -157,15 +157,15 @@ TEST(MultiSetTest, Insert_1) {
  }
 
  // TODO этот тест не трогать, так и должно быть
-//TEST(MultiSetTest, Count_1) {
-//   s21::multiset<int> myMultiset = {4, 4, 1};
-//   std::multiset<int> stdMultiset = {4, 4, 1};
-//
-//   // Проверяем количество вхождений различных элементов
-//   EXPECT_EQ(myMultiset.count(4), stdMultiset.count(4));
-//   EXPECT_EQ(myMultiset.count(1), stdMultiset.count(1));
-//   EXPECT_EQ(myMultiset.count(7), stdMultiset.count(7));
-//}
+TEST(MultiSetTest, Count_1) {
+   s21::multiset<int> myMultiset = {4, 4, 1};
+   std::multiset<int> stdMultiset = {4, 4, 1};
+
+   // Проверяем количество вхождений различных элементов
+   EXPECT_EQ(myMultiset.count(4), stdMultiset.count(4));
+   EXPECT_EQ(myMultiset.count(1), stdMultiset.count(1));
+   EXPECT_EQ(myMultiset.count(7), stdMultiset.count(7));
+}
 
 //TEST(MultisetTest, EqualRange_1) {
 //   s21::multiset<int> myMultiset = {1, 2, 2, 3, 3, 3, 4, 4, 4, 4};

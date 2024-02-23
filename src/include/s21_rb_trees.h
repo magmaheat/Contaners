@@ -38,8 +38,9 @@ namespace s21 {
       Node *left;
       Node *right;
       int color;
-      Node() : key(), data(), pair(), parent(nullptr), left(nullptr), right(nullptr), color(kRED) {}
-      Node(const Key& k, const T& v) : key(k), data(v), pair(k, v), parent(nullptr), left(nullptr), right(nullptr), color(Color::kRED) {}
+      int id;
+      Node() : key(), data(), pair(), parent(nullptr), left(nullptr), right(nullptr), color(kRED), id(1) {}
+      Node(const Key& k, const T& v) : key(k), data(v), pair(k, v), parent(nullptr), left(nullptr), right(nullptr), color(Color::kRED), id(1) {}
     } Node; // TODO add constructor
 
 
@@ -109,16 +110,16 @@ namespace s21 {
   protected:
     Node* root_;
     size_t count_element_ = 0;
-    iterator tree_begin() { return iterator (min(), this); }
+    iterator tree_begin() { return iterator (min(root_), this); }
     iterator tree_end() { return iterator(nullptr, this); }
-    size_t count_elem(iterator pos);
+    size_t count_elem(const Key &key);
     std::pair<Node*, bool> insert_local(const Key& key, const T& value =  T());
     Node* find_local(const Key &value);
     virtual int get_mode() const {
       return 0;
     }
-    Node *min();
-    Node *max();
+    Node *min(Node *node);
+    Node *max(Node *node);
     void add(const Node *node);
     void free(Node *&node);
 

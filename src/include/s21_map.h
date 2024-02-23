@@ -105,7 +105,7 @@ namespace s21 {
   };
     using iterator = map_iterator;
 
-    iterator begin() {return iterator(this->min(), this);}
+    iterator begin() {return iterator(this->min(this->root_), this);}
     iterator end() {return iterator(nullptr, this);}
 
     std::pair<iterator, bool>insert(const value_type& value) {

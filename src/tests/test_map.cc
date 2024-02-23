@@ -33,7 +33,6 @@ TEST(MapTest, DefaultConstructor_2) {
   EXPECT_TRUE(myMap5.size() == stdMap5.size());
 }
 
- // Не проходит
  TEST(MapTest, DefaultConstructor_3) {
    s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
    std::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
@@ -49,7 +48,6 @@ TEST(MapTest, DefaultConstructor_2) {
      }
  }
 
- // Не проходит
  TEST(MapTest, CopyConstructor_1) {
    s21::map<int, int> myMap{{1, 10}, {2, 20}, {3, 30}};
    s21::map<int, int> myCopiedMap = myMap;
@@ -59,7 +57,6 @@ TEST(MapTest, DefaultConstructor_2) {
    EXPECT_TRUE(myCopiedMap.size() == stdCopiedMap.size());
  }
 
- // Не проходит
  TEST(MapTest, CopyConstructor_2) {
    s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
    s21::map<int, char> myCopiedMap = myMap;
@@ -77,7 +74,6 @@ TEST(MapTest, DefaultConstructor_2) {
      }
  }
 
- // Не проходит
  TEST(MapTest, CopyConstructor_3) {
    s21::map<int, int> myMap{{1, 10}, {2, 20}, {3, 30}};
    s21::map<int, int> myCopiedMap = myMap;
@@ -100,94 +96,93 @@ TEST(MapTest, MoveConstructor_1) {
   EXPECT_TRUE(myMovedMap.size() == stdMovedMap.size());
 }
 
-// // Не проходит
-// TEST(MapTest, MoveConstructor_2) {
-//   s21::map<int, int> myMap{{1, 10}, {2, 20}, {3, 30}};
-//   s21::map<int, int> myMovedMap = std::move(myMap);
-//   std::map<int, int> stdMap{{1, 10}, {2, 20}, {3, 30}};
-//   std::map<int, int> stdMovedMap = std::move(stdMap);
+ TEST(MapTest, MoveConstructor_2) {
+   s21::map<int, int> myMap{{1, 10}, {2, 20}, {3, 30}};
+   s21::map<int, int> myMovedMap = std::move(myMap);
+   std::map<int, int> stdMap{{1, 10}, {2, 20}, {3, 30}};
+   std::map<int, int> stdMovedMap = std::move(stdMap);
   
-//   EXPECT_TRUE(myMovedMap.size() == stdMovedMap.size());
-//   auto myIt = myMovedMap.begin();
-//   auto stdIt = stdMovedMap.begin();
+   EXPECT_TRUE(myMovedMap.size() == stdMovedMap.size());
+   auto myIt = myMovedMap.begin();
+   auto stdIt = stdMovedMap.begin();
 
-//   for (; myIt != myMovedMap.end(); myIt++, stdIt++) {
-//     EXPECT_TRUE((*myIt).first == (*stdIt).first);
-//     EXPECT_TRUE((*myIt).second == (*stdIt).second);
-//     }
-// }
+   for (; myIt != myMovedMap.end(); myIt++, stdIt++) {
+     EXPECT_TRUE((*myIt).first == (*stdIt).first);
+     EXPECT_TRUE((*myIt).second == (*stdIt).second);
+     }
+ }
 
-// TEST(MapTest, AssignmentOperator) {
-//     s21::map<int, int> myMap1{{1, 2}, {3, 4}};
-//     s21::map<int, int> myMap2{{5, 6}, {7, 8}};
+ TEST(MapTest, AssignmentOperator) {
+     s21::map<int, int> myMap1{{1, 2}, {3, 4}};
+     s21::map<int, int> myMap2{{5, 6}, {7, 8}};
 
-//     myMap1 = std::move(myMap2);
+     myMap1 = std::move(myMap2);
 
-//     EXPECT_EQ(myMap1.size(), 2);
-//     EXPECT_EQ(myMap1[5], 6);
-//     EXPECT_EQ(myMap1[7], 8);
-// }
+     EXPECT_EQ(myMap1.size(), 2);
+     EXPECT_EQ(myMap1[5], 6);
+     EXPECT_EQ(myMap1[7], 8);
+ }
 
-// TEST(MapTest, Begin_1) {
-//     s21::map<int, int> myMap{{1, 2}, {3, 4}};
+ TEST(MapTest, Begin_1) {
+     s21::map<int, int> myMap{{1, 2}, {3, 4}};
 
-//     auto it = myMap.begin();
+     auto it = myMap.begin();
 
-//     EXPECT_EQ((*it).first, 1);
-//     EXPECT_EQ((*it).second, 2);
-// }
+     EXPECT_EQ((*it).first, 1);
+     EXPECT_EQ((*it).second, 2);
+ }
 
-// TEST(MapTest, Insert_1) {
-//   s21::map<int, char> myMap;
-//   std::map<int, char> stdMap;
+ TEST(MapTest, Insert_1) {
+   s21::map<int, char> myMap;
+   std::map<int, char> stdMap;
   
-//   EXPECT_EQ(myMap.size(), stdMap.size());
+   EXPECT_EQ(myMap.size(), stdMap.size());
 
-//   myMap.insert(std::make_pair(1, 'a'));
-//   myMap.insert(std::make_pair(2, '@'));
-//   myMap.insert(std::make_pair(3, '$'));
-//   stdMap.insert(std::make_pair(1, 'a'));
-//   stdMap.insert(std::make_pair(2, '@'));
-//   stdMap.insert(std::make_pair(3, '$'));
+   myMap.insert(std::make_pair(1, 'a'));
+   myMap.insert(std::make_pair(2, '@'));
+   myMap.insert(std::make_pair(3, '$'));
+   stdMap.insert(std::make_pair(1, 'a'));
+   stdMap.insert(std::make_pair(2, '@'));
+   stdMap.insert(std::make_pair(3, '$'));
 
-//   EXPECT_EQ(myMap.size(), stdMap.size());
+   EXPECT_EQ(myMap.size(), stdMap.size());
 
-//   auto myIt = myMap.begin();
-//   auto stdIt = stdMap.begin();
+   auto myIt = myMap.begin();
+   auto stdIt = stdMap.begin();
 
-//   for (; myIt != myMap.end(); myIt++, stdIt++) {
-//     EXPECT_TRUE((*myIt).first == (*stdIt).first);
-//     EXPECT_TRUE((*myIt).second == (*stdIt).second);
-//     }
-// }
+   for (; myIt != myMap.end(); myIt++, stdIt++) {
+     EXPECT_TRUE((*myIt).first == (*stdIt).first);
+     EXPECT_TRUE((*myIt).second == (*stdIt).second);
+     }
+ }
 
-// TEST(MapTest, Insert_2) {
-//   s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
-//   std::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+ TEST(MapTest, Insert_2) {
+   s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+   std::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
   
-//   myMap.insert(std::make_pair(4, 'z'));
-//   stdMap.insert(std::make_pair(4, 'z'));
+   myMap.insert(std::make_pair(4, 'z'));
+   stdMap.insert(std::make_pair(4, 'z'));
   
-//   EXPECT_EQ(myMap.size(), stdMap.size());
+   EXPECT_EQ(myMap.size(), stdMap.size());
 
-//   auto myIt = myMap.begin();
-//   auto stdIt = stdMap.begin();
+   auto myIt = myMap.begin();
+   auto stdIt = stdMap.begin();
 
-//   for (; myIt != myMap.end(); myIt++, stdIt++) {
-//     EXPECT_TRUE((*myIt).first == (*stdIt).first);
-//     EXPECT_TRUE((*myIt).second == (*stdIt).second);
-//     }
-// }
+   for (; myIt != myMap.end(); myIt++, stdIt++) {
+     EXPECT_TRUE((*myIt).first == (*stdIt).first);
+     EXPECT_TRUE((*myIt).second == (*stdIt).second);
+     }
+ }
 
 
-// TEST(MapTest, Assignment_1) {
-//   s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
-//   std::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+ TEST(MapTest, Assignment_1) {
+   s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+   std::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
 
-//   myMap[1] = '@';
-//   stdMap[1] = '@';
+   myMap[1] = '@';
+   stdMap[1] = '@';
 
-//   EXPECT_EQ(myMap[1], '@');
-//   EXPECT_EQ(stdMap[1], '@');
-// }
+   EXPECT_EQ(myMap[1], '@');
+   EXPECT_EQ(stdMap[1], '@');
+ }
 
