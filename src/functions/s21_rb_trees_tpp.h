@@ -272,14 +272,15 @@ typename std::pair<typename red_black_tree<Key, T>::Node*, bool> red_black_tree<
     count_element_++;
   } else {
     if (get_mode() == 4) {
-      parent->data = new_node->data;
+      copy_node->data = new_node->data;
+      copy_node->pair.second = new_node->data;
     } else {
       delete new_node;
       new_node = nullptr;
     }
   }
 
-  if (new_node != nullptr) {
+  if (new_node != nullptr && get_mode() != 4) {
     recolor_and_rotate(new_node);
   }
 

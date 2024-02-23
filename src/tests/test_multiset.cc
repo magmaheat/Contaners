@@ -156,7 +156,6 @@ TEST(MultiSetTest, Insert_1) {
    EXPECT_TRUE(*myResult == *stdResult);
  }
 
- // TODO этот тест не трогать, так и должно быть
 TEST(MultiSetTest, Count_1) {
    s21::multiset<int> myMultiset = {4, 4, 1};
    std::multiset<int> stdMultiset = {4, 4, 1};

@@ -8,31 +8,14 @@
 #include <vector>
 
 int main() {
-////  s21::multiset<int> myMultiset = {10, 10, 7, 12, 20, 10, 10};
-//  std::multiset<int> stdMultiset = {10, 10, 7, 12, 20, 10, 10};
-////myMultiset.display();
-//
-//  auto it = stdMultiset.begin();
-//  it++;
+  s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+  std::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
 
-//  std::set<int> std_set;
-//
-//  for (int i = 0; i < 5000000; i++) {
-//    std_set.insert(i);
-//  }
+  myMap.insert_or_assign(1, '@');
+  stdMap.insert_or_assign(1, '@');
 
-  s21::set<int> std_set;
-
-  for (int i = 0; i < 5000000; i++) {
-    std_set.insert(i);
-  }
-
-  std_set.find(5000000);
-
-//  std::set<int> std_set;
-//
-//  for (int i = 0; i < 10000; i++) {
-//    std_set.insert(i);
-//  }
+  std::cout << (*myMap.begin()).second << std::endl;
+  std::cout << myMap.size() << std::endl;
+//  myMap.display();
   return 0;
 }
