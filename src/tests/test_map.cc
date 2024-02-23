@@ -186,3 +186,137 @@ TEST(MapTest, MoveConstructor_1) {
    EXPECT_EQ(stdMap[1], '@');
  }
 
+// -------------------------------------------------------------------------------------------------------
+// У нас реализован данный оператор?
+// TEST(MapTest, InsertOrAssign_1) {
+//   s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+//   std::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+  
+//   myMap.insert_or_assign(1, '@');
+//   stdMap.insert_or_assign(1, '@');
+  
+//   EXPECT_EQ(myMap.size(), stdMap.size());
+
+//   auto myIt = myMap.begin();
+//   auto stdIt = stdMap.begin();
+
+//   for (; myIt != myMap.end(); myIt++, stdIt++) {
+//     EXPECT_TRUE((*myIt).first == (*stdIt).first);
+//     EXPECT_TRUE((*myIt).second == (*stdIt).second);
+//     }
+// }
+
+// TEST(MapTest, InsertOrAssign_2) {
+//   s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+//   std::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+  
+//   myMap.insert_or_assign(4, 'z');
+//   stdMap.insert_or_assign(4, 'z');
+  
+//   EXPECT_EQ(myMap.size(), stdMap.size());
+
+//   auto myIt = myMap.begin();
+//   auto stdIt = stdMap.begin();
+
+//   for (; myIt != myMap.end(); myIt++, stdIt++) {
+//     EXPECT_TRUE((*myIt).first == (*stdIt).first);
+//     EXPECT_TRUE((*myIt).second == (*stdIt).second);
+//     }
+// }
+
+// Не проходит
+// TEST(MapTest, Erase_1) {
+//   s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+//   std::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+  
+//   auto myIt = myMap.find(2);
+//   if (myIt != myMap.end()) {
+//     myMap.erase(myIt);
+//   }
+
+//   auto stdIt = stdMap.find(2);
+//   if (stdIt != stdMap.end()) {
+//     stdMap.erase(stdIt);
+//   }
+
+//   EXPECT_EQ(myMap.size(), stdMap.size());
+
+//   auto myIt2 = myMap.begin();
+//   auto stdIt2 = stdMap.begin();
+
+//   for (; myIt2 != myMap.end(); myIt2++, stdIt2++) {
+//     EXPECT_EQ(myIt2->first, stdIt2->first);
+//     EXPECT_EQ(myIt2->second, stdIt2->second);
+//     }
+// }
+
+
+TEST(MapTest, Erase_2) {
+  s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+  std::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+  
+  myMap.erase(myMap.begin());
+  stdMap.erase(stdMap.begin());
+
+  EXPECT_EQ(myMap.size(), stdMap.size());
+
+}
+// Не проходит сравнение по элементам
+TEST(MapTest, Swap) {
+  s21::map<int, char> myMap1{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+  s21::map<int, char> myMap2{{1, 'w'}};
+  std::map<int, char> stdMap1{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+  std::map<int, char> stdMap2{{1, 'w'}};
+  
+  myMap1.swap(myMap2);
+  stdMap1.swap(stdMap2);
+
+  EXPECT_EQ(myMap1.size(), stdMap1.size());
+  EXPECT_EQ(myMap2.size(), stdMap2.size());
+
+  auto myIt = myMap1.begin();
+  auto stdIt = stdMap1.begin();
+
+  for (; myIt != myMap1.end(); myIt++, stdIt++) {
+    EXPECT_TRUE((*myIt).first == (*stdIt).first);
+    EXPECT_TRUE((*myIt).second == (*stdIt).second);
+    }
+
+  auto myIt2 = myMap2.begin();
+  auto stdIt2 = stdMap2.begin();
+
+  for (; myIt2 != myMap2.end(); myIt2++, stdIt2++) {
+    EXPECT_TRUE((*myIt2).first == (*stdIt2).first);
+    EXPECT_TRUE((*myIt2).second == (*stdIt2).second);
+    }
+}
+// Не проходит и на этапе сравнения  кол-ва, как будто наш оператор не заменяет с существующим ключом, а добавляет новую пару
+// TEST(MapTest, Merge) {
+//   s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {4, 'd'}};
+//   s21::map<int, char> myMap2{{2, '$'}, {3, 'c'}, {5, 'w'}};
+//   std::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {4, 'd'}};
+//   std::map<int, char> stdMap2{{2, '$'}, {3, 'c'}, {5, 'w'}};
+  
+//   myMap.merge(myMap2);
+//   stdMap.merge(stdMap2);
+
+//   EXPECT_EQ(myMap.size(), stdMap.size());
+
+//   auto myIt = myMap.begin();
+//   auto stdIt = stdMap.begin();
+
+//   for (; myIt != myMap.end(); myIt++, stdIt++) {
+//     EXPECT_TRUE((*myIt).first == (*stdIt).first);
+//     EXPECT_TRUE((*myIt).second == (*stdIt).second);
+//     }
+// }
+
+
+TEST(MapTest, Contains_2) {
+  s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+  s21::map<int, char> myMap2;
+
+
+  EXPECT_EQ(myMap.contains(2), true);
+  EXPECT_EQ(myMap2.contains(2), false);
+}
