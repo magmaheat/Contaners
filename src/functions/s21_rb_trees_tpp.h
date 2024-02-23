@@ -527,7 +527,7 @@ size_t red_black_tree<Key,T>::size() {
 
 template<typename Key, typename T>
 size_t red_black_tree<Key,T>::count_elem(iterator pos) {
-  return pos.current_->count;
+  return pos.current_->count; // TODO сделать метод
 }
 
 }  // namespace s21

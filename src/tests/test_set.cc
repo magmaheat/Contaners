@@ -207,8 +207,6 @@ TEST(set, merge_1) {
 
   auto x = s21_set_1.begin();
   for (auto i = std_set_1.begin(); i != std_set_1.end(); ++i) {
-//         std::cout << "std_set: " << *i << " "
-//           << "s21_set: " << *x << std::endl;
     ASSERT_EQ(*i, *x);
     x++;
   }
@@ -265,15 +263,15 @@ TEST(set, erase_2) {
 
   s21_set.erase(s21_set.begin());
   std_set.erase(std_set.begin());
-//  EXPECT_EQ(s21_set.size(), std_set.size());
+  EXPECT_EQ(s21_set.size(), std_set.size());
 
-//  s21_set.erase(++s21_set.begin());
-//  std_set.erase(++std_set.begin());
-//  EXPECT_EQ(s21_set.size(), std_set.size());
-//
-//  s21_set.clear();
-//  std_set.clear();
-//  EXPECT_EQ(s21_set.size(), std_set.size());
+  s21_set.erase(++s21_set.begin());
+  std_set.erase(++std_set.begin());
+  EXPECT_EQ(s21_set.size(), std_set.size());
+
+  s21_set.clear();
+  std_set.clear();
+  EXPECT_EQ(s21_set.size(), std_set.size());
 }
 
 TEST(set, erase_3) {

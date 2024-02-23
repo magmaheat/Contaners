@@ -7,14 +7,11 @@
 #include "../include/s21_set.h"
 
 int main() {
-  s21::multiset<int> myMultiset1 = {10, 10, 1, 100, 0};
-  s21::multiset<int> myMultiset2 = std::move(myMultiset1);
+  s21::multiset<int> myMultiset = {2, 2, 5, 6, 7};
+  std::multiset<int> stdMultiset = {2, 2, 5, 6, 7};
+  auto myResult = myMultiset.lower_bound(2);
+  auto stdResult = stdMultiset.lower_bound(2);
+  std::cout << *(++(++myResult)) << ' ' << *(++(++stdResult)) << std::endl;
 
-  std::multiset<int> stdMultiset1 = {10, 10, 1, 100, 0};
-  std::multiset<int> stdMultiset2 = std::move(stdMultiset1);
-
-//  EXPECT_TRUE(myMultiset2.size() == stdMultiset2.size());
-//  EXPECT_EQ(stdMultiset1.empty(), myMultiset1.empty());
-  std::cout << myMultiset2.size() << ' ' << stdMultiset2.size() << std::endl;
   return 0;
 }
