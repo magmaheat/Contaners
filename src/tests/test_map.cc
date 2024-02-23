@@ -246,17 +246,17 @@ TEST(MapTest, MoveConstructor_1) {
 //     EXPECT_EQ(myIt2->second, stdIt2->second);
 //     }
 // }
-//
-//TEST(MapTest, Erase_2) {
-//  s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
-//  std::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
-//
-//  myMap.erase(myMap.begin());
-//  stdMap.erase(stdMap.begin());
-//
-//  EXPECT_EQ(myMap.size(), stdMap.size());
-//
-//}
+
+TEST(MapTest, Erase_2) {
+  s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+  std::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+
+  myMap.erase(myMap.begin());
+  stdMap.erase(stdMap.begin());
+
+  EXPECT_EQ(myMap.size(), stdMap.size());
+
+}
 
 TEST(MapTest, Swap) {
   s21::map<int, char> myMap1{{1, 'a'}, {2, 'b'}, {3, 'c'}};
