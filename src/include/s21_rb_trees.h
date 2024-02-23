@@ -4,6 +4,7 @@
 #include <initializer_list>
 #include <iostream>
 #include <algorithm>
+#include <vector>
 
 #define MAX_SIZE 230584300921369395
 
@@ -90,8 +91,6 @@ namespace s21 {
     protected:
       Node* current_;
       red_black_tree<Key, T>* tree;
-
-    private:
     };
 
     using iterator = tree_iterator;
@@ -105,7 +104,6 @@ namespace s21 {
     size_t size();
     size_t max_size() { return MAX_SIZE; }
     void display();
-
 
   protected:
     Node* root_;

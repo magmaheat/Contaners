@@ -8,14 +8,11 @@
 #include <vector>
 
 int main() {
-  s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
-  std::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+  s21::set<int> set21;
+  s21::set<int> set_temp = {2, 3 , 4, 5};
 
-  myMap.insert_or_assign(1, '@');
-  stdMap.insert_or_assign(1, '@');
-
-  std::cout << (*myMap.begin()).second << std::endl;
-  std::cout << myMap.size() << std::endl;
+  std::vector<std::pair<s21::set<int>::iterator , bool>> vec = set21.insert_many(*(set_temp.find(3)), *(set_temp.find(5)));
+  std::cout << *vec[0].first << std::endl;
 //  myMap.display();
   return 0;
 }

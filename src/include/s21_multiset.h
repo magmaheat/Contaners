@@ -39,6 +39,14 @@ namespace s21 {
       return iterator(this->insert_local(value).first, this);
     }
 
+    template<typename ...Args>
+    std::vector<std::pair<iterator, bool>> insert_many(Args&&... args) {
+      std::vector<std::pair<iterator, bool>> result;
+      (result.push_back(insert(std::forward<Args>(args))), ...);
+
+      return result;
+    }
+
     iterator find(const Key &value) {
       return iterator(this->find_local(value), this);
     }

@@ -10,10 +10,7 @@ namespace s21 {
     using key_type = Key;
     using mapped_type = T;
     using value_type = std::pair<Key, T>;
-    using reference = value_type&;
-    using const_reference = const value_type&;
     using tree = red_black_tree<key_type, mapped_type>;
-//    using iterator = typename red_black_tree<Key, T>::iterator;
     using map_temp = map<key_type, mapped_type>;
 
     map() : red_black_tree<key_type, mapped_type>() {};
@@ -30,14 +27,14 @@ namespace s21 {
     map(map &&other) noexcept : red_black_tree<Key, T>(std::move(other)) {}
     ~map() = default;
 
-    map<key_type, T> &operator=(map<key_type, mapped_type> &&other) noexcept {
+    map<key_type, T> &operator=(map_temp &&other) noexcept {
       if (this != &other) {
         red_black_tree<key_type, key_type>::operator=(std::move(other));
       }
       return *this;
     }
 
-    map<key_type, T> &operator=(const map<key_type, T> &other) noexcept {
+    map<key_type, T> &operator=(const map_temp &other) {
       red_black_tree<Key, Key>::operator=(other);
       return *this;
     }
@@ -53,19 +50,11 @@ namespace s21 {
 
 
     std::pair<const Key, T>* operator->() {
-      if (this->current_) {
-        return &this->current_->pair;
-      } else {
-        throw std::runtime_error("Iterator is not pointing to a node");
-      }
+      return &this->current_->pair;
     }
 
     std::pair<const Key, T>& operator*() {
-      if (this->current_) {
-        return this->current_->pair;
-      } else {
-        throw std::runtime_error("Iterator is not pointing to a node");
-      }
+      return this->current_->pair;
     }
 
     typename tree::iterator& operator++() override {
@@ -99,9 +88,6 @@ namespace s21 {
       typename tree::iterator temp = *this;
       return temp != other;
     }
-
-
-    private:
   };
     using iterator = map_iterator;
 
@@ -125,6 +111,14 @@ namespace s21 {
       return std::pair<iterator, bool>(iterator(return_insert.first, this), return_insert.second);
     }
 
+    template<typename ...Args>
+    std::vector<std::pair<iterator, bool>> insert_many(Args&&... args) {
+      std::vector<std::pair<iterator, bool>> result;
+      (result.push_back(insert(std::forward<Args>(args))), ...);
+
+      return result;
+    }
+
     T& at(const key_type& key) {
       return this->find_local(key)->data;
     }
@@ -136,8 +130,6 @@ namespace s21 {
       }
       return node->data;
     }
-
-//    TODO спрятать лишние методы
 
   private:
     int mode_ = 3;
