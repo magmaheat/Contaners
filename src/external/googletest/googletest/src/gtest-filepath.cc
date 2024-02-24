@@ -293,9 +293,9 @@ bool FilePath::DirectoryExists() const {
 // Returns true if pathname describes a root directory. (Windows has one
 // root directory per disk drive. UNC share roots are also included.)
 bool FilePath::IsRootDirectory() const {
-  size_t root_length = CalculateRootLength();
-  return root_length > 0 && root_length == pathname_.size() &&
-         IsPathSeparator(pathname_[root_length - 1]);
+  size_t rootlength = CalculateRootLength();
+  return rootlength > 0 && rootlength == pathname_.size() &&
+         IsPathSeparator(pathname_[rootlength - 1]);
 }
 
 // Returns true if pathname describes an absolute path.

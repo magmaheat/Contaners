@@ -33,7 +33,7 @@ public:
     return iterator(this->find_local(value), this);
   }
 
-  iterator begin() { return iterator (this->min(this->root_), this); }
+  iterator begin() { return iterator (this->min(this->root), this); }
   iterator end() {return iterator(nullptr, this);}
 
   template<typename ...Args>

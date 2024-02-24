@@ -126,8 +126,8 @@ pkg-config about the actual sysroot
 
 ```
 export PKG_CONFIG_DIR=
-export PKG_CONFIG_SYSROOT_DIR=/home/MYUSER/sysroot
-export PKG_CONFIG_LIBDIR=${PKG_CONFIG_SYSROOT_DIR}/usr/lib64/pkgconfig
+export PKG_CONFIG_SYSrootDIR=/home/MYUSER/sysroot
+export PKG_CONFIG_LIBDIR=${PKG_CONFIG_SYSrootDIR}/usr/lib64/pkgconfig
 ```
 
 and running `pkg-config` again we get

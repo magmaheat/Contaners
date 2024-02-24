@@ -23,7 +23,7 @@ namespace s21 {
     using const_reference = const key_type&;
     using size_type = size_t;
 
-    red_black_tree() : root_(nullptr) {}
+    red_black_tree() : root(nullptr) {}
     red_black_tree(std::initializer_list<Key> initList);
     red_black_tree(const red_black_tree &other) noexcept;
     red_black_tree(red_black_tree &&other) noexcept;
@@ -76,6 +76,7 @@ namespace s21 {
 
         return result;
       }
+
       virtual bool operator!=(const tree_iterator &other) const {
         bool result;
         if (!current_ && !other.current_) {
@@ -88,6 +89,7 @@ namespace s21 {
 
         return result;
       }
+
     protected:
       Node* current_;
       red_black_tree<Key, T>* tree;
@@ -106,9 +108,9 @@ namespace s21 {
     void display();
 
   protected:
-    Node* root_;
-    size_t count_element_ = 0;
-    iterator tree_begin() { return iterator (min(root_), this); }
+    Node* root;
+    size_t count_element = 0;
+    iterator tree_begin() { return iterator (min(root), this); }
     iterator tree_end() { return iterator(nullptr, this); }
     size_t count_elem(const Key &key);
     std::pair<Node*, bool> insert_local(const Key& key, const T& value =  T());

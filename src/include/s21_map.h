@@ -21,7 +21,7 @@ namespace s21 {
     }
 
     map(const map &other) : red_black_tree<Key, T>() {
-      this->add(other.root_);
+      this->add(other.root);
     }
 
     map(map &&other) noexcept : red_black_tree<Key, T>(std::move(other)) {}
@@ -91,7 +91,7 @@ namespace s21 {
   };
     using iterator = map_iterator;
 
-    iterator begin() {return iterator(this->min(this->root_), this);}
+    iterator begin() {return iterator(this->min(this->root), this);}
     iterator end() {return iterator(nullptr, this);}
 
     std::pair<iterator, bool>insert(const value_type& value) {

@@ -17,7 +17,7 @@ namespace s21 {
     }
 
     multiset(const multiset &other) : red_black_tree<Key, Key>() {
-      this->add(other.root_);
+      this->add(other.root);
     }
 
     multiset(multiset &&other) noexcept : red_black_tree<Key, Key>(std::move(other)) {}
@@ -76,7 +76,7 @@ namespace s21 {
       return result;
     }
 
-    iterator begin() { return iterator (this->min(this->root_), this); }
+    iterator begin() { return iterator (this->min(this->root), this); }
     iterator end() {return iterator(nullptr, this);}
 
   private:

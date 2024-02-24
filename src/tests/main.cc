@@ -9,11 +9,7 @@
 #include <vector>
 
 int main() {
-  s21::set<int> set21;
-  s21::set<int> set_temp = {2, 3 , 4, 5};
+  std::set<int> set21 = {1, 2, 4};
 
-  std::vector<std::pair<s21::set<int>::iterator , bool>> vec = set21.insert_many(*(set_temp.find(3)), *(set_temp.find(5)));
-  std::cout << *vec[0].first << std::endl;
-//  myMap.display();
-  return 0;
+  std::set<int>::iterator it = set21.begin();
 }
