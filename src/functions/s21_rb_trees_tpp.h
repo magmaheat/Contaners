@@ -155,8 +155,6 @@ namespace s21 {
   void red_black_tree<Key,T>::erase(iterator pos) {
     Node *current = root;
     Node *parent = nullptr;
-    Node *node = root;
-    Node *child = nullptr;
     bool isFound = true;
 
     if (pos != this->tree_end() && (root->key != pos.current_->key)) {
@@ -177,63 +175,52 @@ namespace s21 {
     }
 
     if (isFound) {
-      if (current->left == nullptr && current->right == nullptr && current->parent != nullptr) {
-        node = current;
-        if (is_left_child(current)) {
-          parent->left = nullptr;
-        } else {
-          parent->right = nullptr;
-        }
-      } else if (current->left != nullptr && current->right == nullptr) {
-        node = current->left;
-        current->key = node->key;
-        current->data = node->data;
-        current->left = nullptr;
-      } else if (current->left == nullptr && current->right != nullptr) {
-        node = current->right;
-        current->key = node->key;
-        current->data = node->data;
-        current->right = nullptr;
-      } else {
-        child = current->left;
-        while (child->right) {
-          child = child->right;
-        }
-        current->key = child->key;
-        current->data = current->data;
-        if (child->key != current->left->key) {
-          if (child->left != nullptr) {
-            child->parent->right = child->left;
-          } else {
-            child->parent->right = nullptr;
-          }
-        } else {
-          current->left = nullptr;
-        }
-        node = child;
-      }
-      count_element--;
-      delete node;
-      node = nullptr;
+      erase_node(current, parent);
     }
   };
 
-  template<typename Key, typename T>
-  void red_black_tree<Key, T>::display() {
-    print_tree(root);
-  }
-
-  template<typename Key, typename T>
-  void red_black_tree<Key, T>::print_tree(Node* node, int indent) {
-    if (node != nullptr) {
-      print_tree(node->right, indent +  4);
-      if (node->color == kRED) {
-        std::cout << std::string(indent, ' ') << "R: " << node->key << std::endl;
+  template <typename Key, typename T>
+  void red_black_tree<Key, T>::erase_node(Node *current, Node *parent) {
+    Node *node = nullptr;
+    Node *child = nullptr;
+    if (current->left == nullptr && current->right == nullptr && current->parent != nullptr) {
+      node = current;
+      if (is_left_child(current)) {
+        parent->left = nullptr;
       } else {
-        std::cout << std::string(indent, ' ') << "B: " << node->key << std::endl;
+        parent->right = nullptr;
       }
-      print_tree(node->left, indent +  4);
+    } else if (current->left != nullptr && current->right == nullptr) {
+      node = current->left;
+      current->key = node->key;
+      current->data = node->data;
+      current->left = nullptr;
+    } else if (current->left == nullptr && current->right != nullptr) {
+      node = current->right;
+      current->key = node->key;
+      current->data = node->data;
+      current->right = nullptr;
+    } else {
+      child = current->left;
+      while (child->right) {
+        child = child->right;
+      }
+      current->key = child->key;
+      current->data = current->data;
+      if (child->key != current->left->key) {
+        if (child->left != nullptr) {
+          child->parent->right = child->left;
+        } else {
+          child->parent->right = nullptr;
+        }
+      } else {
+        current->left = nullptr;
+      }
+      node = child;
     }
+    count_element--;
+    delete node;
+    node = nullptr;
   }
 
   template<typename Key, typename T>
@@ -259,7 +246,6 @@ namespace s21 {
       }
     }
 
-  //  std::cout << this->get_mode() << std::endl;
     new_node->parent = parent;
     if (parent == nullptr) {
       new_node->color = Color::kBLACK;
@@ -283,7 +269,6 @@ namespace s21 {
     if (new_node != nullptr && mode != 4) {
       recolor_and_rotate(new_node);
     }
-
     if (new_node == nullptr && mode == 3) {
       new_node = copy_node;
     }
@@ -309,7 +294,6 @@ namespace s21 {
 
     }
     root->color = kBLACK;
-
   }
 
   template<typename Key, typename T>
@@ -516,9 +500,6 @@ namespace s21 {
 
     return count;
   }
-
-
-
 }  // namespace s21
 
 #endif //CPP2_S21_CONTAINERS_2_S21_RB_TREES_H

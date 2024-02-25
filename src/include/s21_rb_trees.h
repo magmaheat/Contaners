@@ -6,8 +6,6 @@
 #include <algorithm>
 #include <vector>
 
-#define MAX_SIZE 230584300921369395
-
 namespace s21 {
   template<typename Key, typename T>
   class red_black_tree {
@@ -100,8 +98,7 @@ namespace s21 {
     void merge(red_black_tree &other);
     bool empty();
     size_t size();
-    size_t max_size() { return MAX_SIZE; }
-    void display();
+    size_t max_size() { return max_size_; }
 
   protected:
     Node* root;
@@ -111,16 +108,13 @@ namespace s21 {
     size_t count_elem(const Key &key);
     std::pair<Node*, bool> insert_local(const Key& key, const T& value =  T(), int mode = 0);
     Node* find_local(const Key &value);
-    virtual int get_mode() const {
-      return 0;
-    }
     Node *min(Node *node);
     Node *max(Node *node);
     void add(const Node *node);
     void free(Node *&node);
 
   private:
-    void print_tree(Node* node, int indent =  0);
+    void erase_node(Node *current, Node *parent);
     void recolor_and_rotate(Node *node);
     void swap_colors(Node *a);
     bool is_left_child(const Node *node);
