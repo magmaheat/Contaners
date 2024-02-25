@@ -145,7 +145,7 @@ TEST(MultiSetTest, Insert_1) {
    EXPECT_EQ(*it2, 3);
    EXPECT_EQ(*it3, 7);
 
-   EXPECT_EQ(myMultiset.size(), 3);
+   EXPECT_EQ(myMultiset.size(), static_cast<size_t>(3));
 }
 
  TEST(MultiSetTest, Insert_2) {

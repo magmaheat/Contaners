@@ -118,7 +118,7 @@ TEST(MapTest, MoveConstructor_1) {
 
      myMap1 = std::move(myMap2);
 
-     EXPECT_EQ(myMap1.size(), 2);
+     EXPECT_EQ(myMap1.size(), static_cast<size_t>(2));
      EXPECT_EQ(myMap1[5], 6);
      EXPECT_EQ(myMap1[7], 8);
  }
