@@ -82,6 +82,8 @@ namespace s21 {
         }
         current_ = current_->parent;
       }
+    } else {
+      current_ = tree->max(tree->root);
     }
     return (*this);
   };
@@ -235,7 +237,7 @@ namespace s21 {
   }
 
   template<typename Key, typename T>
-  typename std::pair<typename red_black_tree<Key, T>::Node*, bool> red_black_tree<Key,T>::insert_local(const Key &key, const T &value) {
+  typename std::pair<typename red_black_tree<Key, T>::Node*, bool> red_black_tree<Key,T>::insert_local(const Key &key, const T &value, int mode) {
     bool result = true;
     Node *new_node = new Node(key, value);
     Node *copy_node = nullptr;
@@ -263,27 +265,26 @@ namespace s21 {
       new_node->color = Color::kBLACK;
       root = new_node;
       count_element++;
-    } else if ((new_node->key < parent->key) && (result || get_mode() == 2)) {
+    } else if ((new_node->key < parent->key) && (result || mode == 2)) {
       parent->left = new_node;
       count_element++;
-    } else if ((new_node->key > parent->key && result) || (get_mode() == 2)){  // add 2 = kMultiset
+    } else if ((new_node->key > parent->key && result) || (mode == 2)){  // add 2 = kMultiset
       parent->right = new_node;
       count_element++;
     } else {
-      if (get_mode() == 4) {
+      if (mode == 4) {
         copy_node->data = new_node->data;
         copy_node->pair.second = new_node->data;
-      } else {
-        delete new_node;
-        new_node = nullptr;
       }
+      delete new_node;
+      new_node = nullptr;
     }
 
-    if (new_node != nullptr && get_mode() != 4) {
+    if (new_node != nullptr && mode != 4) {
       recolor_and_rotate(new_node);
     }
 
-    if (new_node == nullptr && get_mode() == 3) {
+    if (new_node == nullptr && mode == 3) {
       new_node = copy_node;
     }
 

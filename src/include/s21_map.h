@@ -95,19 +95,19 @@ namespace s21 {
     iterator end() {return iterator(nullptr, this);}
 
     std::pair<iterator, bool>insert(const value_type& value) {
-      std::pair<typename red_black_tree<Key, T>::Node*, bool> return_insert = this->insert_local(value.first, value.second);
+      std::pair<typename red_black_tree<Key, T>::Node*, bool> return_insert = this->insert_local(value.first, value.second, 3);
       return std::pair<iterator, bool>(iterator(return_insert.first, this), return_insert.second);
     }
 
     std::pair<iterator, bool>insert(const key_type & key, const mapped_type& data) {
-      std::pair<typename red_black_tree<Key, T>::Node*, bool> return_insert = this->insert_local(key, data);
+      std::pair<typename red_black_tree<Key, T>::Node*, bool> return_insert = this->insert_local(key, data, 3);
       return std::pair<iterator, bool>(iterator(return_insert.first, this), return_insert.second);
     }
 
     std::pair<iterator, bool> insert_or_assign(const Key& key, const T& data) {
-      mode_ = 4;
-      std::pair<typename red_black_tree<Key, T>::Node*, bool> return_insert = this->insert_local(key, data);
-      mode_ = 3;
+//      mode_ = 4;
+      std::pair<typename red_black_tree<Key, T>::Node*, bool> return_insert = this->insert_local(key, data, 4);
+//      mode_ = 3;
       return std::pair<iterator, bool>(iterator(return_insert.first, this), return_insert.second);
     }
 
@@ -126,17 +126,10 @@ namespace s21 {
     T& operator[](const key_type& key) {
       typename red_black_tree<Key, T>::Node* node = this->find_local(key);
       if (node == nullptr) {
-        node = this->insert_local(key).first;
+        node = this->insert_local(key, 3).first;
       }
       return node->data;
     }
-
-  private:
-    int mode_ = 3;
-    int get_mode() const override{
-      return mode_;
-    }
-
   };
 }
 

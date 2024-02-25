@@ -221,33 +221,8 @@ TEST(MapTest, MoveConstructor_1) {
      EXPECT_TRUE((*myIt).second == (*stdIt).second);
      }
  }
-//
-// TEST(MapTest, Erase_1) {
-//   s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
-//   std::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
-//
-//   auto myIt = myMap.find(2);
-//   if (myIt != myMap.end()) {
-//     myMap.erase(myIt);
-//   }
-//
-//   auto stdIt = stdMap.find(2);
-//   if (stdIt != stdMap.end()) {
-//     stdMap.erase(stdIt);
-//   }
-//
-//   EXPECT_EQ(myMap.size(), stdMap.size());
-//
-//   auto myIt2 = myMap.begin();
-//   auto stdIt2 = stdMap.begin();
-//
-//   for (; myIt2 != myMap.end(); myIt2++, stdIt2++) {
-//     EXPECT_EQ(myIt2->first, stdIt2->first);
-//     EXPECT_EQ(myIt2->second, stdIt2->second);
-//     }
-// }
 
-TEST(MapTest, Erase_2) {
+TEST(MapTest, Erase_1) {
   s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
   std::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
 
