@@ -82,6 +82,8 @@ namespace s21 {
         }
         current_ = current_->parent;
       }
+    } else {
+      current_ = tree->max(tree->root);
     }
     return (*this);
   };

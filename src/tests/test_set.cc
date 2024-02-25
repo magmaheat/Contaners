@@ -329,22 +329,19 @@ TEST(set, erase_3) {
   EXPECT_EQ(s21_set.size(), std_set.size());
 }
 
-/*Не проходит*/
 TEST(set, erase_4) {
   s21::set<int> s21_set = {2, 4, 6};
   std::set<int> std_set = {2, 4, 6};
 
   s21_set.erase(--s21_set.end());
   std_set.erase(--std_set.end());
-  // ASSERT_TRUE(isEqual(s21_set, std_set));
-  // print(s21_set);
-  // print(std_set);
+   ASSERT_TRUE(isEqual(s21_set, std_set));
 
-  // EXPECT_EQ(s21_set.size(), std_set.size());
+   EXPECT_EQ(s21_set.size(), std_set.size());
 
-  // s21_set.clear();
-  // std_set.clear();
-  // EXPECT_EQ(s21_set.size(), std_set.size());
+   s21_set.clear();
+   std_set.clear();
+   EXPECT_EQ(s21_set.size(), std_set.size());
 }
 
 TEST(set, insert_1) {
