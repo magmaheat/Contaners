@@ -335,13 +335,13 @@ TEST(set, erase_4) {
 
   s21_set.erase(--s21_set.end());
   std_set.erase(--std_set.end());
-   ASSERT_TRUE(isEqual(s21_set, std_set));
+  ASSERT_TRUE(isEqual(s21_set, std_set));
 
-   EXPECT_EQ(s21_set.size(), std_set.size());
+  EXPECT_EQ(s21_set.size(), std_set.size());
 
-   s21_set.clear();
-   std_set.clear();
-   EXPECT_EQ(s21_set.size(), std_set.size());
+  s21_set.clear();
+  std_set.clear();
+  EXPECT_EQ(s21_set.size(), std_set.size());
 }
 
 TEST(set, insert_1) {
@@ -429,8 +429,8 @@ TEST(set, insert_5) {
 //       end_time_std - start_time_std);
 //   auto duration_s21 = std::chrono::duration_cast<std::chrono::milliseconds>(
 //       end_time_s21 - start_time_s21);
-  // EXPECT_TRUE(duration_s21 <= duration_std);
-  // EXPECT_EQ(std_set.size(), s21_set.size());
+// EXPECT_TRUE(duration_s21 <= duration_std);
+// EXPECT_EQ(std_set.size(), s21_set.size());
 //   // std::cout << "Insertion of " << num_elements << " elements into std::set
 //   // took "
 //   //             << duration_std.count() << " ms." << std::endl;
