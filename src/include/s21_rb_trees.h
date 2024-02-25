@@ -6,12 +6,6 @@
 #include <algorithm>
 #include <vector>
 
-#define MAX_SIZE 230584300921369395
-
-// TODO оптимизировать ptr++ and ptr--
-// TODO подстроить find под map
-// TODO подстроить insert под map
-
 namespace s21 {
   template<typename Key, typename T>
   class red_black_tree {
@@ -113,7 +107,7 @@ namespace s21 {
     iterator tree_begin() { return iterator (min(root), this); }
     iterator tree_end() { return iterator(nullptr, this); }
     size_t count_elem(const Key &key);
-    std::pair<Node*, bool> insert_local(const Key& key, const T& value =  T());
+    std::pair<Node*, bool> insert_local(const Key& key, const T& value =  T(), int mode = 0);
     Node* find_local(const Key &value);
     virtual int get_mode() const {
       return 0;

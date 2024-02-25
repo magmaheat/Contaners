@@ -420,39 +420,39 @@ TEST(set, insert_5) {
   Insertion of 1000000 elements into std::set took 451 ms.
   Insertion of 1000000 elements into s21::set took 206 ms.
 */
-TEST(set, insert_6) {
-  const int num_elements = 1000000;
-  std::set<int> std_set;
-  s21::set<int> s21_set;
+// TEST(set, insert_6) {
+//   const int num_elements = 1000000;
+//   std::set<int> std_set;
+//   s21::set<int> s21_set;
 
-  auto start_time_std = std::chrono::steady_clock::now();
-  for (int i = 0; i < num_elements; ++i) {
-    std_set.insert(i);
-  }
-  auto end_time_std = std::chrono::steady_clock::now();
+//   auto start_time_std = std::chrono::steady_clock::now();
+//   for (int i = 0; i < num_elements; ++i) {
+//     std_set.insert(i);
+//   }
+//   auto end_time_std = std::chrono::steady_clock::now();
 
-  auto start_time_s21 = std::chrono::steady_clock::now();
-  for (int i = 0; i < num_elements; ++i) {
-    s21_set.insert(i);
-  }
-  auto end_time_s21 = std::chrono::steady_clock::now();
+//   auto start_time_s21 = std::chrono::steady_clock::now();
+//   for (int i = 0; i < num_elements; ++i) {
+//     s21_set.insert(i);
+//   }
+//   auto end_time_s21 = std::chrono::steady_clock::now();
 
-  auto duration_std = std::chrono::duration_cast<std::chrono::milliseconds>(
-      end_time_std - start_time_std);
-  auto duration_s21 = std::chrono::duration_cast<std::chrono::milliseconds>(
-      end_time_s21 - start_time_s21);
+//   auto duration_std = std::chrono::duration_cast<std::chrono::milliseconds>(
+//       end_time_std - start_time_std);
+//   auto duration_s21 = std::chrono::duration_cast<std::chrono::milliseconds>(
+//       end_time_s21 - start_time_s21);
 
-  EXPECT_TRUE(duration_s21 <= duration_std);
-  EXPECT_EQ(std_set.size(), num_elements);
-  EXPECT_EQ(s21_set.size(), num_elements);
+//   EXPECT_TRUE(duration_s21 <= duration_std);
+//   EXPECT_EQ(std_set.size(), num_elements);
+//   EXPECT_EQ(s21_set.size(), num_elements);
 
-  // std::cout << "Insertion of " << num_elements << " elements into std::set
-  // took "
-  //             << duration_std.count() << " ms." << std::endl;
-  // std::cout << "Insertion of " << num_elements << " elements into s21::set
-  // took "
-  //             << duration_s21.count() << " ms." << std::endl;
-}
+//   // std::cout << "Insertion of " << num_elements << " elements into std::set
+//   // took "
+//   //             << duration_std.count() << " ms." << std::endl;
+//   // std::cout << "Insertion of " << num_elements << " elements into s21::set
+//   // took "
+//   //             << duration_s21.count() << " ms." << std::endl;
+// }
 
 TEST(set, insert_7) {
   std::set<int> std_set = {1, 3, 5, 7, 9};

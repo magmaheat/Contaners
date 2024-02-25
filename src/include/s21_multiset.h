@@ -12,7 +12,7 @@ namespace s21 {
     multiset() : red_black_tree<Key, Key>() {}
     multiset(std::initializer_list<Key> initList) {
       for (const auto &item: initList) {
-        this->insert_local(item);
+        this->insert_local(item, item,2);
       }
     }
 
@@ -36,7 +36,7 @@ namespace s21 {
     }
 
     iterator insert(const Key& value) {
-      return iterator(this->insert_local(value).first, this);
+      return iterator(this->insert_local(value, value, 2).first, this);
     }
 
     template<typename ...Args>
@@ -78,11 +78,6 @@ namespace s21 {
 
     iterator begin() { return iterator (this->min(this->root), this); }
     iterator end() {return iterator(nullptr, this);}
-
-  private:
-    int get_mode() const override {
-      return 2;
-    }
   };
 }
 

@@ -9,7 +9,17 @@
 #include <vector>
 
 int main() {
-  std::set<int> set21 = {1, 2, 4};
+   s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+  //  std::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
+  
+   myMap.insert_or_assign(1, '@');
+  //  stdMap.insert_or_assign(1, '@');
+  
+  //  auto myIt = myMap.begin();
+  //  auto stdIt = stdMap.begin();
 
-  std::set<int>::iterator it = set21.begin();
+  //  for (; myIt != myMap.end(); myIt++, stdIt++) {
+  //    EXPECT_TRUE((*myIt).first == (*stdIt).first);
+  //    EXPECT_TRUE((*myIt).second == (*stdIt).second);
+  //    }
 }
