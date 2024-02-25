@@ -1,7 +1,6 @@
 #ifndef S21_CPP_S21_CONTAINERS_SRC_S21_CONTAINERS_S21_STACK_TPP_
 #define S21_CPP_S21_CONTAINERS_SRC_S21_CONTAINERS_S21_STACK_TPP_
 
-// #include "../include/s21_stack.h"
 namespace s21 {
 
 template <typename T>

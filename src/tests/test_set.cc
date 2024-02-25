@@ -446,8 +446,7 @@ TEST(set, insert_6) {
       end_time_s21 - start_time_s21);
 
   EXPECT_TRUE(duration_s21 <= duration_std);
-  EXPECT_EQ(std_set.size(), num_elements);
-  EXPECT_EQ(s21_set.size(), num_elements);
+  EXPECT_EQ(std_set.size(), s21_set.size());
 
   // std::cout << "Insertion of " << num_elements << " elements into std::set
   // took "
@@ -514,7 +513,7 @@ TEST(set, insert_many_1) {
   auto insert_s21 = s21_set.insert_many(5, 10, 5, 15);
 
   EXPECT_TRUE(isEqual(s21_set, std_set));
-  EXPECT_EQ(s21_set.size(), 3);
+  EXPECT_EQ(s21_set.size(), std_set.size());
 }
 
 TEST(set, insert_many_2) {
