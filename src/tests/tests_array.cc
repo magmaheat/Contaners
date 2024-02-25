@@ -49,7 +49,7 @@ TEST(ArrayTest, CopyConstructor_1) {
   s21::array<int, 5> copyArray(myArray);
 
   // Проверяем что размер скопировался верно
-  EXPECT_EQ(copyArray.size(), 5);
+  EXPECT_EQ(copyArray.size(), static_cast<size_t>(5));
 
   // Проверяем что элементы скопировались верно
   for (size_t i = 0; i < myArray.size(); ++i) {
@@ -63,7 +63,7 @@ TEST(ArrayTest, CopyConstructor_2) {
   s21::array<std::string, 4> copyArray(myArray);
 
   // Проверяем что размер скопировался верно
-  EXPECT_EQ(copyArray.size(), 4);
+  EXPECT_EQ(copyArray.size(), static_cast<size_t>(4));
 
   // Проверяем что элементы скопировались верно
   for (size_t i = 0; i < myArray.size(); ++i) {
@@ -78,7 +78,7 @@ TEST(ArrayTest, MoveConstructor_1) {
   s21::array<int, 5> movedArray(std::move(myArray));
 
   // Проверяем что размер скопировался верно
-  EXPECT_EQ(movedArray.size(), 5);
+  EXPECT_EQ(movedArray.size(), static_cast<size_t>(5));
 
   for (size_t i = 0; i < movedArray.size(); ++i) {
     EXPECT_EQ(movedArray[i], stdArray[i]);
@@ -92,7 +92,7 @@ TEST(ArrayTest, MoveConstructor_2) {
   s21::array<std::string, 4> movedArray(std::move(myArray));
 
   // Проверяем что размер скопировался верно
-  EXPECT_EQ(movedArray.size(), 4);
+  EXPECT_EQ(movedArray.size(), static_cast<size_t>(4));
 
   for (size_t i = 0; i < movedArray.size(); ++i) {
     EXPECT_EQ(movedArray[i], stdArray[i]);
@@ -269,8 +269,8 @@ TEST(ArrayTest, Empty_2) {
 TEST(ArrayTest, Size_1) {
   s21::array<int, 5> myArray1 = {555, 10, 25, 80, 1000};
   s21::array<int, 0> myArray2;
-  EXPECT_EQ(myArray1.size(), 5);
-  EXPECT_EQ(myArray2.size(), 0);
+  EXPECT_EQ(myArray1.size(), static_cast<size_t>(5));
+  EXPECT_EQ(myArray2.size(), static_cast<size_t>(0));
 }
 
 TEST(ArrayTest, MaxSize) {
@@ -278,9 +278,9 @@ TEST(ArrayTest, MaxSize) {
   s21::array<std::string, 4> myArray2{"Hello", "Privet", "Salam", "Bonjour"};
   s21::array<int, 0> myArray3;
 
-  EXPECT_EQ(myArray1.max_size(), 5);
-  EXPECT_EQ(myArray2.max_size(), 4);
-  EXPECT_EQ(myArray3.max_size(), 0);
+  EXPECT_EQ(myArray1.max_size(), static_cast<size_t>(1));
+  EXPECT_EQ(myArray2.max_size(), static_cast<size_t>(4));
+  EXPECT_EQ(myArray3.max_size(), static_cast<size_t>(0));
 }
 
 TEST(ArrayTest, Swap) {
