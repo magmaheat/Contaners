@@ -278,7 +278,7 @@ TEST(ArrayTest, MaxSize) {
   s21::array<std::string, 4> myArray2{"Hello", "Privet", "Salam", "Bonjour"};
   s21::array<int, 0> myArray3;
 
-  EXPECT_EQ(myArray1.max_size(), static_cast<size_t>(1));
+  EXPECT_EQ(myArray1.max_size(), static_cast<size_t>(5));
   EXPECT_EQ(myArray2.max_size(), static_cast<size_t>(4));
   EXPECT_EQ(myArray3.max_size(), static_cast<size_t>(0));
 }
