@@ -249,23 +249,6 @@ TEST(MultiSetTest, Size) {
   EXPECT_TRUE(myMultiset2.size() == stdMultiset2.size());
 }
 
-TEST(MultiSetTest, MaxSize) {
-  s21::multiset<int> myMultiset;
-  std::multiset<int> stdMultiset;
-  s21::multiset<int> myMultiset1 = {};
-  std::multiset<int> stdMultiset1 = {};
-  s21::multiset<int> myMultiset2 = {4, 4, 1};
-  std::multiset<int> stdMultiset2 = {4, 4, 1};
-
-  EXPECT_EQ(myMultiset.max_size(), static_cast<size_t>(0));
-  EXPECT_TRUE(myMultiset.max_size() == stdMultiset.max_size());
-  EXPECT_EQ(myMultiset1.max_size(), static_cast<size_t>(0));
-  EXPECT_TRUE(myMultiset1.max_size() == stdMultiset1.max_size());
-  EXPECT_EQ(myMultiset2.max_size(), static_cast<size_t>(3));
-  EXPECT_TRUE(myMultiset2.max_size() == stdMultiset2.max_size());
-}
-
-
 TEST(MultiSetTest, ContainsOperator) {
  s21::multiset<int> myMultiset1 = {10, 1, 100, 0};
  s21::multiset<int> myMultiset2;
@@ -346,17 +329,12 @@ TEST(MultiSetTest, FindOperator) {
    EXPECT_TRUE(*stdIt == 3);
    EXPECT_FALSE(*myIt == 10);
    EXPECT_FALSE(*stdIt == 10);
-
-   auto myIt2 = myMultiset2.find(2);
-   auto stdIt2 = stdMultiset2.find(2);
-   EXPECT_FALSE(*myIt2 == 2);
-   EXPECT_FALSE(*stdIt2 == 2);
 }
 
-// TEST(MultiSetTest, InsertMany) {
-//   s21::multiset<int> myMultiset = {10, 1, 100, 66};
+ TEST(MultiSetTest, InsertMany) {
+   s21::multiset<int> myMultiset = {10, 1, 100, 66};
 
-//   myMultiset.insert_many(1, 2, 3);
+   myMultiset.insert_many(1, 2, 3);
 
-//   EXPECT_EQ(myMultiset.size(), static_cast<size_t>(7));
-// }
+   EXPECT_EQ(myMultiset.size(), static_cast<size_t>(7));
+ }

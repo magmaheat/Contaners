@@ -122,7 +122,7 @@ public:
   void merge(red_black_tree &other);
   bool empty();
   size_t size();
-  size_t max_size() { return max_size_; }
+  size_t max_size() { return std::numeric_limits<size_t>::max() / 2 / sizeof(Node); }
 
 protected:
   Node* root;

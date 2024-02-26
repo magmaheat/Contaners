@@ -42,7 +42,7 @@ public:
   template<typename ...Args>
   std::vector<std::pair<iterator, bool>> insert_many(Args&&... args) {
     std::vector<std::pair<iterator, bool>> result;
-    (result.push_back(insert(std::forward<Args>(args))), ...);
+    (result.push_back(std::pair(insert(std::forward<Args>(args)), true)), ...);
 
     return result;
   }
@@ -54,8 +54,13 @@ public:
   size_t count(const Key& key) { return this->count_elem(key); }
 
   std::pair<iterator, iterator> equal_range(const Key& key){
-    iterator found(this->find(key));
-    std::pair<iterator, iterator> result(found, found);
+    iterator begin_it(this->find(key));
+    iterator end_it = begin_it;
+    iterator end_copy = end_it;
+    while (end_it == end_copy) {
+      end_it++;
+    }
+    std::pair<iterator, iterator> result(begin_it, end_it);
 
     return result;
   }

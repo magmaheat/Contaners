@@ -55,7 +55,7 @@ red_black_tree<Key, T> &red_black_tree<Key, T>::operator=(const red_black_tree &
       free(root);
       root = nullptr;
     }
-    add(root);
+    add(other.root);
     count_element = other.count_element;
   }
 
