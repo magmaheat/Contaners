@@ -9,17 +9,19 @@
 #include <vector>
 
 int main() {
-   s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
-  //  std::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'}};
-  
-   myMap.insert_or_assign(1, '@');
-  //  stdMap.insert_or_assign(1, '@');
-  
-  //  auto myIt = myMap.begin();
-  //  auto stdIt = stdMap.begin();
+  s21::set<double> s21_set = {1.1, 2.2};
+  s21::set<double> s21_set2 = {3.3, 4.4};
+  std::set<double> std_set = {1.1, 2.2};
+  std::set<double> std_set2 = {3.3, 4.4};
 
-  //  for (; myIt != myMap.end(); myIt++, stdIt++) {
-  //    EXPECT_TRUE((*myIt).first == (*stdIt).first);
-  //    EXPECT_TRUE((*myIt).second == (*stdIt).second);
-  //    }
+  s21_set.merge(s21_set2);
+  std_set.merge(std_set2);
+    std::cout << s21_set.size() << ' ' <<  std_set.size() << std::endl;
+
+  std_set.clear();
+  s21_set.clear();
+
+  std::cout << s21_set.size() << ' ' <<  std_set.size() << std::endl;
+  std::cout << s21_set2.size() << ' ' <<  std_set2.size() << std::endl;
+
 }

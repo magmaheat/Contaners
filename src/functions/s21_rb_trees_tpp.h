@@ -29,7 +29,7 @@ namespace s21 {
   }
 
   template<typename Key, typename T>
-  red_black_tree<Key,T> &red_black_tree<Key,T>::operator=(
+  red_black_tree<Key, T> &red_black_tree<Key, T>::operator=(
           red_black_tree &&other) noexcept {
     if (this != &other) {
       if (root != nullptr) {
@@ -63,7 +63,7 @@ namespace s21 {
   }
 
   template<typename Key, typename T>
-  red_black_tree<Key,T>::~red_black_tree() {
+  red_black_tree<Key, T>::~red_black_tree() {
     if (root != nullptr) {
       free(root);
       root = nullptr;
@@ -71,8 +71,8 @@ namespace s21 {
   }
 
   template<typename Key, typename T>
-  typename red_black_tree<Key,T>::iterator &
-  red_black_tree<Key,T>::iterator::operator--() {
+  typename red_black_tree<Key, T>::iterator &
+  red_black_tree<Key, T>::iterator::operator--() {
     if (current_) {
       if (current_->left != nullptr) {
         current_ = tree->max(current_->left);
@@ -89,15 +89,15 @@ namespace s21 {
   };
 
   template<typename Key, typename T>
-  typename red_black_tree<Key,T>::iterator
-  red_black_tree<Key,T>::iterator::operator--(int) {
+  typename red_black_tree<Key, T>::iterator
+  red_black_tree<Key, T>::iterator::operator--(int) {
     iterator temp = *this;
     --(*this);
     return temp;
   };
 
   template<typename Key, typename T>
-  Key red_black_tree<Key,T>::iterator::operator*() const {
+  Key red_black_tree<Key, T>::iterator::operator*() const {
     if (current_) {
       return current_->key;
     } else {
@@ -106,8 +106,8 @@ namespace s21 {
   }
 
   template<typename Key, typename T>
-  typename red_black_tree<Key,T>::iterator &
-  red_black_tree<Key,T>::iterator::operator++() {
+  typename red_black_tree<Key, T>::iterator &
+  red_black_tree<Key, T>::iterator::operator++() {
     if (current_) {
       if (current_->right != nullptr) {
         current_ = tree->min(current_->right);
@@ -123,8 +123,8 @@ namespace s21 {
   };
 
   template<typename Key, typename T>
-  typename red_black_tree<Key,T>::iterator
-  red_black_tree<Key,T>::iterator::operator++(int) {
+  typename red_black_tree<Key, T>::iterator
+  red_black_tree<Key, T>::iterator::operator++(int) {
     iterator temp = *this;
     ++(*this);
     return temp;
@@ -132,7 +132,7 @@ namespace s21 {
 
 
   template<typename Key, typename T>
-  void red_black_tree<Key,T>::free(Node *&node) {
+  void red_black_tree<Key, T>::free(Node *&node) {
     if (node != nullptr) {
       free(node->left);
       free(node->right);
@@ -143,7 +143,7 @@ namespace s21 {
   };
 
   template<typename Key, typename T>
-  void red_black_tree<Key,T>::add(const Node *node) {
+  void red_black_tree<Key, T>::add(const Node *node) {
     if (node != nullptr) {
       this->insert_local(node->key, node->data);
       add(node->left);
@@ -152,7 +152,7 @@ namespace s21 {
   };
 
   template<typename Key, typename T>
-  void red_black_tree<Key,T>::erase(iterator pos) {
+  void red_black_tree<Key, T>::erase(iterator pos) {
     Node *current = root;
     Node *parent = nullptr;
     bool isFound = true;
@@ -179,7 +179,7 @@ namespace s21 {
     }
   };
 
-  template <typename Key, typename T>
+  template<typename Key, typename T>
   void red_black_tree<Key, T>::erase_node(Node *current, Node *parent) {
     Node *node = nullptr;
     Node *child = nullptr;
@@ -200,7 +200,7 @@ namespace s21 {
       current->key = node->key;
       current->data = node->data;
       current->right = nullptr;
-    } else {
+    } else if (!(current->left == nullptr && current->right == nullptr && current->parent == nullptr)) {
       child = current->left;
       while (child->right) {
         child = child->right;
@@ -224,7 +224,8 @@ namespace s21 {
   }
 
   template<typename Key, typename T>
-  typename std::pair<typename red_black_tree<Key, T>::Node*, bool> red_black_tree<Key,T>::insert_local(const Key &key, const T &value, int mode) {
+  typename std::pair<typename red_black_tree<Key, T>::Node *, bool>
+  red_black_tree<Key, T>::insert_local(const Key &key, const T &value, int mode) {
     bool result = true;
     Node *new_node = new Node(key, value);
     Node *copy_node = nullptr;
@@ -254,7 +255,7 @@ namespace s21 {
     } else if ((new_node->key < parent->key) && (result || mode == 2)) {
       parent->left = new_node;
       count_element++;
-    } else if ((new_node->key > parent->key && result) || (mode == 2)){  // add 2 = kMultiset
+    } else if ((new_node->key > parent->key && result) || (mode == 2)) {  // add 2 = kMultiset
       parent->right = new_node;
       count_element++;
     } else {
@@ -273,7 +274,7 @@ namespace s21 {
       new_node = copy_node;
     }
 
-    return std::pair<Node*, bool>(new_node, result);
+    return std::pair<Node *, bool>(new_node, result);
   };
 
   template<typename Key, typename T>
@@ -281,7 +282,7 @@ namespace s21 {
     Node *parent = node->parent;
 
     if (((node->key != root->key) || (node->key == root->key && node->id != root->id))
-    && (parent->color == kRED)) {
+        && (parent->color == kRED)) {
       Node *grand = node->parent->parent;
       Node *uncle = (is_left_child(parent)) ? grand->right : grand->left;
       if (uncle && uncle->color == kRED) {
@@ -375,14 +376,14 @@ namespace s21 {
   bool red_black_tree<Key, T>::is_left_child(const Node *node) {
     bool result = false;
     if (node->parent && node->parent->left && node->key == node->parent->left->key &&
-    node->id == node->parent->left->id) { // TODO node->parent?
+        node->id == node->parent->left->id) { // TODO node->parent?
       result = true;
     }
     return result;
   }
 
   template<typename Key, typename T>
-  typename red_black_tree<Key, T>::Node* red_black_tree<Key,T>::find_local(
+  typename red_black_tree<Key, T>::Node *red_black_tree<Key, T>::find_local(
           const Key &value) {
     Node *current = root;
     iterator it;
@@ -402,7 +403,7 @@ namespace s21 {
   };
 
   template<typename Key, typename T>
-  bool red_black_tree<Key,T>::contains(const Key &value) {
+  bool red_black_tree<Key, T>::contains(const Key &value) {
     bool result = false;
     if (this->find_local(value) != nullptr) {
       result = true;
@@ -411,7 +412,7 @@ namespace s21 {
   }
 
   template<typename Key, typename T>
-  typename red_black_tree<Key,T>::Node *red_black_tree<Key,T>::min(Node *node) {
+  typename red_black_tree<Key, T>::Node *red_black_tree<Key, T>::min(Node *node) {
     Node *current = node;
     if (current) {
       while (current->left != nullptr) {
@@ -422,7 +423,7 @@ namespace s21 {
   };
 
   template<typename Key, typename T>
-  typename red_black_tree<Key,T>::Node *red_black_tree<Key,T>::max(Node *node) {
+  typename red_black_tree<Key, T>::Node *red_black_tree<Key, T>::max(Node *node) {
     Node *current = node;
     if (current) {
       while (current->right != nullptr) {
@@ -433,7 +434,7 @@ namespace s21 {
   };
 
   template<typename Key, typename T>
-  void red_black_tree<Key,T>::clear() {
+  void red_black_tree<Key, T>::clear() {
     if (root != nullptr) {
       free(root);
       root = nullptr;
@@ -442,38 +443,31 @@ namespace s21 {
   };
 
   template<typename Key, typename T>
-  void red_black_tree<Key,T>::swap(red_black_tree &other) {
+  void red_black_tree<Key, T>::swap(red_black_tree &other) {
     std::swap(root, other.root);
     std::swap(count_element, other.count_element);
   };
 
   template<typename Key, typename T>
-  void red_black_tree<Key,T>::merge(red_black_tree<Key,T> &other) {
-    if (other.root != nullptr) {
+  void red_black_tree<Key, T>::merge(red_black_tree<Key, T> &other) {
+    if (this != &other && other.root != nullptr) {
       iterator it = other.tree_begin();
-      std::vector<std::pair<Key, T>> remainder;  // TODO заменить на свой
-      while (it.current_) {
-        if (find_local(it.current_->key) != nullptr) {
-          remainder.push_back(std::pair<Key, T>(it.current_->key, it.current_->data));
-        }
-        insert_local(it.current_->key, it.current_->data);
-        it++;
-      }
-
-      free(other.root);
-      other.root = nullptr;
-      other.count_element = 0;
-      if (remainder.size()) {
-        for (int i = 0; i != (int)remainder.size(); ++i) {
-          other.insert_local(remainder[i].first, remainder[i].second);
+      iterator it_delete = it;
+      while (it != tree_end()) {
+        if (find_local(it.current_->key) == nullptr) {
+          it_delete = it;
+          insert_local(it.current_->key, it.current_->data);
+          it++;
+          other.erase(it_delete);
+        } else {
+          it++;
         }
       }
     }
-
   };
 
   template<typename Key, typename T>
-  bool red_black_tree<Key,T>::empty() {
+  bool red_black_tree<Key, T>::empty() {
     bool result = true;
     if (root) {
       result = false;
@@ -483,12 +477,12 @@ namespace s21 {
   }
 
   template<typename Key, typename T>
-  size_t red_black_tree<Key,T>::size() {
+  size_t red_black_tree<Key, T>::size() {
     return count_element;
   }
 
   template<typename Key, typename T>
-  size_t red_black_tree<Key,T>::count_elem(const Key &key) {
+  size_t red_black_tree<Key, T>::count_elem(const Key &key) {
     auto start = tree_begin();
     size_t count = 0;
     while (start != this->tree_end()) {
