@@ -154,6 +154,23 @@ TEST(set, set_iter_begin_2) {
               std_set_1.begin() == std_set_1.end());
 }
 
+TEST(set, set_iter_begin_3) {
+  s21::set<int> s21_set_1 = {1, 4, 6};
+  std::set<int> std_set_1 = {1, 4, 6};
+  auto s21_it = s21_set_1.begin();
+  auto std_it = std_set_1.begin();
+
+  --s21_it;
+  --std_it;
+  EXPECT_TRUE(s21_it == s21_set_1.end());
+  EXPECT_TRUE(std_it == std_set_1.end());
+
+  --s21_it;
+  --std_it;
+  EXPECT_TRUE(s21_it == --s21_set_1.end());
+  EXPECT_TRUE(std_it == --std_set_1.end());
+}
+
 TEST(set, swap_1) {
   s21::set<int> s21_set_1{2, 4, 6};
   s21::set<int> s21_set_2{1, 3, 5, 7};
