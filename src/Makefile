@@ -27,10 +27,10 @@ else ifeq ($(OS),Darwin)
 	LDFLAGS += -lstdc++ -lm
 endif
 
-# | --INSTRUCTIONS--															      |
-# | ------RUS-------																  |
-# | Если вы запускаете в первый раз, то сперва необходимо запустить цель gtest_build. |
-# | Данная цель компилирует библиотеку gtest.     !! НЕОБХОДИМО НАЛИЧИЕ CMAKE !! 	  |
+# --INSTRUCTIONS--
+# ------RUS-------
+# Если вы запускаете в первый раз, то сперва необходимо запустить цель gtest_build.
+# Данная цель компилирует библиотеку gtest.     !! НЕОБХОДИМО НАЛИЧИЕ CMAKE !!
 
 all: google_test
 
@@ -56,14 +56,6 @@ leak:
 clang_format:
 	clang-format -i $(INCLUDE_DIR)/*.h $(TPP_DIR)/*.tpp $(TEST_DIR)/*.cc
 
-clean:
-	@rm -f $(OBJS) *.a *.o s21_containers_tests
-	@rm -rf *.gcda *.gcno *.info report
-
-
-
-#ПОТОМ УДАЛЮ :))))
-#FOR TESTS, PLEASE, DON'T DELETE
 test: clean
 	$(CC) $(CFLAGS) $(TEST_SRC) $(GTEST_FLAGS) -o s21_containers_tests $(LDFLAGS)
 	./s21_containers_tests
@@ -79,3 +71,6 @@ gcov_test: clean
 #	genhtml -o report/ test.info
 #	rm -f *.gcno *.gcda *.info test *.gcov
 
+clean:
+	@rm -f $(OBJS) *.a *.o s21_containers_tests
+	@rm -rf *.gcda *.gcno *.info report
