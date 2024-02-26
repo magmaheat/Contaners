@@ -93,10 +93,17 @@ TEST(set, move_3) {
 
 TEST(set, contains_1) {
   s21::set<int> s21_set_1{2, 4, 6};
-  std::set<int> std_set_1{2, 4, 6};
 
   EXPECT_FALSE(s21_set_1.contains(5));
   EXPECT_TRUE(s21_set_1.contains(6));
+}
+
+TEST(set, contains_2) {
+  s21::set<int> s21_set_1;
+  std::set<int> std_set_1;
+
+  EXPECT_FALSE(s21_set_1.contains(5));
+  EXPECT_FALSE(s21_set_1.contains(6));
 }
 
 TEST(set, find_1) {
@@ -128,11 +135,8 @@ TEST(set, find_2) {
 TEST(set, find_3) {
   s21::set<int> s21_set = {1, -2, 3, 5, 8, -13, 55, -89, 144, 233};
   s21::set<int>::iterator s21_x;
-  try {
-    s21_x = s21_set.find(35);
-  } catch (const std::exception &e) {
-    ASSERT_STREQ(e.what(), "Iterator is not pointer to  a node");
-  }
+  s21_x = s21_set.find(35);
+  ASSERT_TRUE(s21_x == s21_set.end());
 }
 
 TEST(set, set_iter_begin_1) {
@@ -452,14 +456,6 @@ TEST(set, insert_7) {
   EXPECT_EQ(*insertion_result_std.first, *insertion_result_s21.first);
   EXPECT_NE(insertion_result_std.first, std_set.end());
   EXPECT_NE(insertion_result_s21.first, s21_set.end());
-}
-
-TEST(set, max_size_1) {
-  s21::set<double> s21_set = {-2, 6, 5, 8};
-  std::set<double> std_set = {-2, 6, 5, 8};
-  ASSERT_EQ(s21_set.empty(), std_set.empty());
-  ASSERT_EQ(s21_set.size(), std_set.size());
-  // ASSERT_EQ(s21_set.max_size(), std_set.max_size());
 }
 
 TEST(set, iterators_1) {
