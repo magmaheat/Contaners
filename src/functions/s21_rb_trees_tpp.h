@@ -2,6 +2,7 @@
 #define CPP2_S21_CONTAINERS_2_S21_RB_TREES_H
 
 #include "../include/s21_rb_trees.h"
+#include "../include/s21_vector.h"
 
 namespace s21 {
   template<typename Key, typename T>
@@ -398,7 +399,6 @@ namespace s21 {
         }
       }
     }
-
     return current;
   };
 
@@ -452,15 +452,21 @@ namespace s21 {
   void red_black_tree<Key, T>::merge(red_black_tree<Key, T> &other) {
     if (this != &other && other.root != nullptr) {
       iterator it = other.tree_begin();
-      iterator it_delete = it;
-      while (it != tree_end()) {
-        if (find_local(it.current_->key) == nullptr) {
-          it_delete = it;
-          insert_local(it.current_->key, it.current_->data);
-          it++;
-          other.erase(it_delete);
-        } else {
-          it++;
+      s21::vector<std::pair<Key, T>> remainder;  // TODO заменить на свой
+      while (it.current_) {
+        if (find_local(it.current_->key) != nullptr) {
+          remainder.PushBack(std::pair(it.current_->key, it.current_->data));
+        }
+        insert_local(it.current_->key, it.current_->data);
+        it++;
+      }
+
+      free(other.root);
+      other.root = nullptr;
+      other.count_element = 0;
+      if (remainder.GetSize()) {
+        for (int i = 0; i != (int)remainder.GetSize(); ++i) {
+          other.insert_local(remainder[i].first, remainder[i].second);
         }
       }
     }
@@ -472,7 +478,6 @@ namespace s21 {
     if (root) {
       result = false;
     }
-
     return result;
   }
 
@@ -491,7 +496,6 @@ namespace s21 {
       }
       start++;
     }
-
     return count;
   }
 }  // namespace s21
