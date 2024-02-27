@@ -1,5 +1,5 @@
-#ifndef CONTAINERS_S21_MULTISET_H
-#define CONTAINERS_S21_MULTISET_H
+#ifndef CONTAINERS_S21_MULTISET_H_
+#define CONTAINERS_S21_MULTISET_H_
 
 #include "s21_rb_trees.h"
 
@@ -100,6 +100,6 @@ public:
   iterator begin() { return iterator (this->min(this->root), this); }
   iterator end() {return iterator(nullptr, this);}
 };
-}
+}  // namespace s21
 
-#endif //CONTAINERS_S21_MULTISET_H
+#endif //CONTAINERS_S21_MULTISET_H_

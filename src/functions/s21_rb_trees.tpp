@@ -1,5 +1,5 @@
-#ifndef CPP2_S21_CONTAINERS_2_S21_RB_TREES_H
-#define CPP2_S21_CONTAINERS_2_S21_RB_TREES_H
+#ifndef CPP2_S21_CONTAINERS_2_S21_RB_TREES_H_
+#define CPP2_S21_CONTAINERS_2_S21_RB_TREES_H_
 
 #include "../include/s21_vector.h"
 
@@ -73,17 +73,17 @@ red_black_tree<Key, T>::~red_black_tree() {
 template<typename Key, typename T>
 typename red_black_tree<Key, T>::iterator &
 red_black_tree<Key, T>::iterator::operator--() {
-  if (current_) {
-    if (current_->left != nullptr) {
-      current_ = tree->max(current_->left);
+  if (current) {
+    if (current->left != nullptr) {
+      current = tree->max(current->left);
     } else {
-      while (tree->is_left_child(current_)) {
-        current_ = current_->parent;
+      while (tree->is_left_child(current)) {
+        current = current->parent;
       }
-      current_ = current_->parent;
+      current = current->parent;
     }
   } else {
-    current_ = tree->max(tree->root);
+    current = tree->max(tree->root);
   }
   return (*this);
 };
@@ -98,8 +98,8 @@ red_black_tree<Key, T>::iterator::operator--(int) {
 
 template<typename Key, typename T>
 Key red_black_tree<Key, T>::iterator::operator*() const {
-  if (current_) {
-    return current_->key;
+  if (current) {
+    return current->key;
   } else {
     throw std::runtime_error("Iterator is not pointer to  a node");
   }
@@ -108,14 +108,14 @@ Key red_black_tree<Key, T>::iterator::operator*() const {
 template<typename Key, typename T>
 typename red_black_tree<Key, T>::iterator &
 red_black_tree<Key, T>::iterator::operator++() {
-  if (current_) {
-    if (current_->right != nullptr) {
-      current_ = tree->min(current_->right);
+  if (current) {
+    if (current->right != nullptr) {
+      current = tree->min(current->right);
     } else {
-      while (current_->parent && !tree->is_left_child(current_)) {
-        current_ = current_->parent;
+      while (current->parent && !tree->is_left_child(current)) {
+        current = current->parent;
       }
-      current_ = current_->parent;
+      current = current->parent;
     }
   }
 
@@ -157,11 +157,11 @@ void red_black_tree<Key, T>::erase(iterator pos) {
   Node *parent = nullptr;
   bool isFound = true;
 
-  if (pos != this->tree_end() && (root->key != pos.current_->key)) {
+  if (pos != this->tree_end() && (root->key != pos.current->key)) {
     while (isFound &&
-           (current->key != pos.current_->key)) {
+           (current->key != pos.current->key)) {
       parent = current;
-      if (pos.current_->key < current->key) {
+      if (pos.current->key < current->key) {
         current = current->left;
       } else {
         current = current->right;
@@ -452,11 +452,11 @@ void red_black_tree<Key, T>::merge(red_black_tree<Key, T> &other) {
   if (this != &other && other.root != nullptr) {
     iterator it = other.tree_begin();
     s21::vector<std::pair<Key, T>> remainder;
-    while (it.current_) {
-      if (find_local(it.current_->key) != nullptr) {
-        remainder.PushBack(std::pair(it.current_->key, it.current_->data));
+    while (it.current) {
+      if (find_local(it.current->key) != nullptr) {
+        remainder.PushBack(std::pair(it.current->key, it.current->data));
       }
-      insert_local(it.current_->key, it.current_->data);
+      insert_local(it.current->key, it.current->data);
       it++;
     }
 
@@ -490,7 +490,7 @@ size_t red_black_tree<Key, T>::count_elem(const Key &key) {
   auto start = tree_begin();
   size_t count = 0;
   while (start != this->tree_end()) {
-    if (start.current_->key == key) {
+    if (start.current->key == key) {
       count++;
     }
     start++;
@@ -499,4 +499,4 @@ size_t red_black_tree<Key, T>::count_elem(const Key &key) {
 }
 }  // namespace s21
 
-#endif //CPP2_S21_CONTAINERS_2_S21_RB_TREES_H
+#endif //CPP2_S21_CONTAINERS_2_S21_RB_TREES_H_

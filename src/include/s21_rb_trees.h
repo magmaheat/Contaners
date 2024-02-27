@@ -71,9 +71,9 @@ public:
   class tree_iterator {
   friend class red_black_tree;
     public:
-      tree_iterator() : current_(nullptr), tree(nullptr) {}
+      tree_iterator() : current(nullptr), tree(nullptr) {}
 
-    explicit tree_iterator(Node *node, red_black_tree<Key, T>* tree_ref) : current_(node), tree(tree_ref) {
+    explicit tree_iterator(Node *node, red_black_tree<Key, T>* tree_ref) : current(node), tree(tree_ref) {
       }
 
     Key operator*() const;
@@ -84,12 +84,12 @@ public:
     virtual tree_iterator operator++(int);
     virtual bool operator==(const tree_iterator &other) const {
       bool result;
-      if (!current_ && !other.current_) {
+      if (!current && !other.current) {
         result = true;
-      } else if (!current_ || !other.current_) {
+      } else if (!current || !other.current) {
         result = false;
       } else {
-        result = current_->key == other.current_->key;
+        result = current->key == other.current->key;
       }
 
       return result;
@@ -97,19 +97,19 @@ public:
 
     virtual bool operator!=(const tree_iterator &other) const {
       bool result;
-      if (!current_ && !other.current_) {
+      if (!current && !other.current) {
         result = false;
-      } else if (!current_ || !other.current_) {
+      } else if (!current || !other.current) {
         result = true;
       } else {
-        result = current_->key != other.current_->key;
+        result = current->key != other.current->key;
       }
 
       return result;
     }
 
   protected:
-    Node* current_;
+    Node* current;
     red_black_tree<Key, T>* tree;
   };
 
@@ -148,7 +148,6 @@ private:
   void rotate_left(Node *node);
   void rotate_right(Node *node);
   void update_children_of_parents(Node *node, Node *temp_node);
-  size_t max_size_ = 230584300921369395;
 };
 }  // namespace s21
 

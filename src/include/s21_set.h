@@ -2,7 +2,6 @@
 #define CPP2_S21_CONTAINERS_1_S21_SET_H_
 #include "s21_rb_trees.h"
 
-
 namespace s21 {
 template <typename Key>
 class set : public red_black_tree<Key, Key> {
@@ -23,7 +22,6 @@ public:
     red_black_tree<Key, Key>::operator=(other);
     return *this;
   }
-
 
   std::pair<iterator, bool>insert(const Key& value) {
     std::pair<typename red_black_tree<Key, Key>::Node*, bool> return_insert = this->insert_local(value);

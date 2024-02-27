@@ -1,5 +1,5 @@
-#ifndef CONTAINERS_S21_MAP_H
-#define CONTAINERS_S21_MAP_H
+#ifndef CONTAINERS_S21_MAP_H_
+#define CONTAINERS_S21_MAP_H_
 
 #include "s21_rb_trees.h"
 
@@ -50,11 +50,11 @@ public:
 
 
   std::pair<const Key, T>* operator->() {
-    return &this->current_->pair;
+    return &this->current->pair;
   }
 
   std::pair<const Key, T>& operator*() {
-    return this->current_->pair;
+    return this->current->pair;
   }
 
   typename tree::iterator& operator++() override {
@@ -69,7 +69,7 @@ public:
   }
 
   typename tree::iterator& operator--() override {
-    tree::iterator::operator++();
+    tree::iterator::operator--();
     return *this;
   }
 
@@ -131,4 +131,4 @@ public:
 };
 }
 
-#endif //CONTAINERS_S21_MAP_H
+#endif //CONTAINERS_S21_MAP_H_
