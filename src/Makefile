@@ -6,8 +6,6 @@ GTEST_FLAGS = -lgtest_main -lgtest
 GCOV_FLAGS = -fprofile-arcs -ftest-coverage
 VALGRIND_FLAGS = --trace-children=yes --track-fds=yes --track-origins=yes --leak-check=full --show-leak-kinds=all --verbose
 
-GTEST_INSTALLED := $(shell dpkg -l | grep libgtest-dev > /dev/null; echo $$?)
-
 GTEST_DIR := ./external/googletest
 GTEST_LIB := $(GTEST_DIR)/build/lib/libgtest.a
 GTEST_INCLUDE := -I$(GTEST_DIR)/googletest/include
@@ -27,15 +25,7 @@ else ifeq ($(OS),Darwin)
 	LDFLAGS += -lstdc++ -lm
 endif
 
-all: check_gtest
-
-check_gtest:
-	@if [ "$(GTEST_INSTALLED)" = "0" ]; then \
-		make test; \
-	else \
-		make gtest_build; \
-		make google_test; \
-	fi
+all: test
 
 gtest_build:
 	cd external/googletest && \
@@ -43,7 +33,7 @@ gtest_build:
 	mkdir build && cd build && \
 	cmake .. && make
 
-google_test: clean $(GTEST_LIB)
+google_test: clean gtest_build $(GTEST_LIB)
 	$(CC) $(CFLAGS) $(TEST_SRC) $(GTEST_INCLUDE) -o s21_containers_tests $(GTEST_LIB) $(LDFLAGS)
 	./s21_containers_tests
 
