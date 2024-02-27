@@ -2,8 +2,9 @@ CC := gcc
 CFLAGS := -Wall -Werror -Wextra -std=c++17
 LDFLAGS :=
 
-GCOV_FLAGS=-fprofile-arcs -ftest-coverage
-VALGRIND_FLAGS=--trace-children=yes --track-fds=yes --track-origins=yes --leak-check=full --show-leak-kinds=all --verbose
+GTEST_FLAGS = -lgtest_main -lgtest
+GCOV_FLAGS = -fprofile-arcs -ftest-coverage
+VALGRIND_FLAGS = --trace-children=yes --track-fds=yes --track-origins=yes --leak-check=full --show-leak-kinds=all --verbose
 
 GTEST_DIR := ./external/googletest
 GTEST_LIB := $(GTEST_DIR)/build/lib/libgtest.a
@@ -18,21 +19,13 @@ TEST_OBJ=$(patsubst ./tests/test_%.cc, %.o, $(TEST_SRC))
 
 OS := $(shell uname -s)
 
-#FOR TESTS, PLEASE, DON'T DELETE
-GTEST_FLAGS= -lgtest_main -lgtest 
-
 ifeq ($(OS),Linux)
 	LDFLAGS += -lstdc++ -pthread -lrt -lm
 else ifeq ($(OS),Darwin)
 	LDFLAGS += -lstdc++ -lm
 endif
 
-# --INSTRUCTIONS--
-# ------RUS-------
-# Если вы запускаете в первый раз, то сперва необходимо запустить цель gtest_build.
-# Данная цель компилирует библиотеку gtest.     !! НЕОБХОДИМО НАЛИЧИЕ CMAKE !!
-
-all: google_test
+all: gtest_build google_test
 
 gtest_build:
 	cd external/googletest && \
@@ -44,6 +37,10 @@ google_test: clean $(GTEST_LIB)
 	$(CC) $(CFLAGS) $(TEST_SRC) $(GTEST_INCLUDE) -o s21_containers_tests $(GTEST_LIB) $(LDFLAGS)
 	./s21_containers_tests
 
+test: clean
+	$(CC) $(CFLAGS) $(TEST_SRC) $(GTEST_FLAGS) -o s21_containers_tests $(LDFLAGS)
+	./s21_containers_tests
+
 valgrind:
 	valgrind $(VALGRIND_FLAGS) -s ./s21_containers_tests
 
@@ -52,10 +49,6 @@ leak:
 
 clang_format:
 	clang-format -i $(INCLUDE_DIR)/*.h $(TPP_DIR)/*.tpp $(TEST_DIR)/*.cc
-
-test: clean
-	$(CC) $(CFLAGS) $(TEST_SRC) $(GTEST_FLAGS) -o s21_containers_tests $(LDFLAGS)
-	./s21_containers_tests
 
 gcov_test: clean
 	$(CC) $(GCOV_FLAGS) $(CFLAGS) $(TEST_SRC) $(GTEST_FLAGS) $(LDFLAGS) -o s21_containers_tests
