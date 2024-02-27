@@ -1,6 +1,5 @@
 #ifndef S21_CPP_S21_CONTAINERS_SRC_S21_CONTAINERS_S21_QUEUE_H_
 #define S21_CPP_S21_CONTAINERS_SRC_S21_CONTAINERS_S21_QUEUE_H_
-#include <iostream>
 
 #include "s21_list.h"
 

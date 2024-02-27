@@ -1,24 +1,25 @@
-#pragma once
+#ifndef S21_CPP_S21_CONTAINERS_SRC_S21_CONTAINERS_S21_RB_TREES_TPP_
+#define S21_CPP_S21_CONTAINERS_SRC_S21_CONTAINERS_S21_RB_TREES_TPP_
 
 #include "../include/s21_vector.h"
 
 namespace s21 {
-template<typename Key, typename T>
+template <typename Key, typename T>
 red_black_tree<Key, T>::red_black_tree(std::initializer_list<Key> initList) {
   root = nullptr;
-  for (const auto &item: initList) {
+  for (const auto& item : initList) {
     insert_local(item);
   }
 }
 
-template<typename Key, typename T>
-red_black_tree<Key, T>::red_black_tree(const red_black_tree &other) noexcept {
+template <typename Key, typename T>
+red_black_tree<Key, T>::red_black_tree(const red_black_tree& other) noexcept {
   root = nullptr;
   add(other.root);
 }
 
-template<typename Key, typename T>
-red_black_tree<Key, T>::red_black_tree(red_black_tree &&other) noexcept {
+template <typename Key, typename T>
+red_black_tree<Key, T>::red_black_tree(red_black_tree&& other) noexcept {
   if (this != &other) {
     root = other.root;
     count_element = other.count_element;
@@ -27,9 +28,9 @@ red_black_tree<Key, T>::red_black_tree(red_black_tree &&other) noexcept {
   }
 }
 
-template<typename Key, typename T>
-red_black_tree<Key, T> &red_black_tree<Key, T>::operator=(
-        red_black_tree &&other) noexcept {
+template <typename Key, typename T>
+red_black_tree<Key, T>& red_black_tree<Key, T>::operator=(
+    red_black_tree&& other) noexcept {
   if (this != &other) {
     if (root != nullptr) {
       free(root);
@@ -47,8 +48,9 @@ red_black_tree<Key, T> &red_black_tree<Key, T>::operator=(
   return (*this);
 }
 
-template<typename Key, typename T>
-red_black_tree<Key, T> &red_black_tree<Key, T>::operator=(const red_black_tree &other) {
+template <typename Key, typename T>
+red_black_tree<Key, T>& red_black_tree<Key, T>::operator=(
+    const red_black_tree& other) {
   if (this != &other) {
     if (root != nullptr) {
       free(root);
@@ -61,7 +63,7 @@ red_black_tree<Key, T> &red_black_tree<Key, T>::operator=(const red_black_tree &
   return *this;
 }
 
-template<typename Key, typename T>
+template <typename Key, typename T>
 red_black_tree<Key, T>::~red_black_tree() {
   if (root != nullptr) {
     free(root);
@@ -69,8 +71,8 @@ red_black_tree<Key, T>::~red_black_tree() {
   }
 }
 
-template<typename Key, typename T>
-typename red_black_tree<Key, T>::iterator &
+template <typename Key, typename T>
+typename red_black_tree<Key, T>::iterator&
 red_black_tree<Key, T>::iterator::operator--() {
   if (current) {
     if (current->left != nullptr) {
@@ -87,7 +89,7 @@ red_black_tree<Key, T>::iterator::operator--() {
   return (*this);
 };
 
-template<typename Key, typename T>
+template <typename Key, typename T>
 typename red_black_tree<Key, T>::iterator
 red_black_tree<Key, T>::iterator::operator--(int) {
   iterator temp = *this;
@@ -95,7 +97,7 @@ red_black_tree<Key, T>::iterator::operator--(int) {
   return temp;
 };
 
-template<typename Key, typename T>
+template <typename Key, typename T>
 Key red_black_tree<Key, T>::iterator::operator*() const {
   if (current) {
     return current->key;
@@ -104,8 +106,8 @@ Key red_black_tree<Key, T>::iterator::operator*() const {
   }
 }
 
-template<typename Key, typename T>
-typename red_black_tree<Key, T>::iterator &
+template <typename Key, typename T>
+typename red_black_tree<Key, T>::iterator&
 red_black_tree<Key, T>::iterator::operator++() {
   if (current) {
     if (current->right != nullptr) {
@@ -121,7 +123,7 @@ red_black_tree<Key, T>::iterator::operator++() {
   return (*this);
 };
 
-template<typename Key, typename T>
+template <typename Key, typename T>
 typename red_black_tree<Key, T>::iterator
 red_black_tree<Key, T>::iterator::operator++(int) {
   iterator temp = *this;
@@ -129,9 +131,8 @@ red_black_tree<Key, T>::iterator::operator++(int) {
   return temp;
 };
 
-
-template<typename Key, typename T>
-void red_black_tree<Key, T>::free(Node *&node) {
+template <typename Key, typename T>
+void red_black_tree<Key, T>::free(Node*& node) {
   if (node != nullptr) {
     free(node->left);
     free(node->right);
@@ -141,8 +142,8 @@ void red_black_tree<Key, T>::free(Node *&node) {
   }
 };
 
-template<typename Key, typename T>
-void red_black_tree<Key, T>::add(const Node *node) {
+template <typename Key, typename T>
+void red_black_tree<Key, T>::add(const Node* node) {
   if (node != nullptr) {
     this->insert_local(node->key, node->data);
     add(node->left);
@@ -150,15 +151,14 @@ void red_black_tree<Key, T>::add(const Node *node) {
   }
 };
 
-template<typename Key, typename T>
+template <typename Key, typename T>
 void red_black_tree<Key, T>::erase(iterator pos) {
-  Node *current = root;
-  Node *parent = nullptr;
+  Node* current = root;
+  Node* parent = nullptr;
   bool isFound = true;
 
   if (pos != this->tree_end() && (root->key != pos.current->key)) {
-    while (isFound &&
-           (current->key != pos.current->key)) {
+    while (isFound && (current->key != pos.current->key)) {
       parent = current;
       if (pos.current->key < current->key) {
         current = current->left;
@@ -178,11 +178,12 @@ void red_black_tree<Key, T>::erase(iterator pos) {
   }
 };
 
-template<typename Key, typename T>
-void red_black_tree<Key, T>::erase_node(Node *current, Node *parent) {
-  Node *node = nullptr;
-  Node *child = nullptr;
-  if (current->left == nullptr && current->right == nullptr && current->parent != nullptr) {
+template <typename Key, typename T>
+void red_black_tree<Key, T>::erase_node(Node* current, Node* parent) {
+  Node* node = nullptr;
+  Node* child = nullptr;
+  if (current->left == nullptr && current->right == nullptr &&
+      current->parent != nullptr) {
     node = current;
     if (is_left_child(current)) {
       parent->left = nullptr;
@@ -199,7 +200,8 @@ void red_black_tree<Key, T>::erase_node(Node *current, Node *parent) {
     current->key = node->key;
     current->data = node->data;
     current->right = nullptr;
-  } else if (!(current->left == nullptr && current->right == nullptr && current->parent == nullptr)) {
+  } else if (!(current->left == nullptr && current->right == nullptr &&
+               current->parent == nullptr)) {
     child = current->left;
     while (child->right) {
       child = child->right;
@@ -222,14 +224,14 @@ void red_black_tree<Key, T>::erase_node(Node *current, Node *parent) {
   node = nullptr;
 }
 
-template<typename Key, typename T>
-typename std::pair<typename red_black_tree<Key, T>::Node *, bool>
-red_black_tree<Key, T>::insert_local(const Key &key, const T &value, int mode) {
+template <typename Key, typename T>
+typename std::pair<typename red_black_tree<Key, T>::Node*, bool>
+red_black_tree<Key, T>::insert_local(const Key& key, const T& value, int mode) {
   bool result = true;
-  Node *new_node = new Node(key, value);
-  Node *copy_node = nullptr;
-  Node *current = root;
-  Node *parent = nullptr;
+  Node* new_node = new Node(key, value);
+  Node* copy_node = nullptr;
+  Node* current = root;
+  Node* parent = nullptr;
 
   while (current != nullptr) {
     parent = current;
@@ -254,7 +256,8 @@ red_black_tree<Key, T>::insert_local(const Key &key, const T &value, int mode) {
   } else if ((new_node->key < parent->key) && (result || mode == 2)) {
     parent->left = new_node;
     count_element++;
-  } else if ((new_node->key > parent->key && result) || (mode == 2)) {  // add 2 = kMultiset
+  } else if ((new_node->key > parent->key && result) ||
+             (mode == 2)) {  // add 2 = kMultiset
     parent->right = new_node;
     count_element++;
   } else {
@@ -273,17 +276,18 @@ red_black_tree<Key, T>::insert_local(const Key &key, const T &value, int mode) {
     new_node = copy_node;
   }
 
-  return std::pair<Node *, bool>(new_node, result);
+  return std::pair<Node*, bool>(new_node, result);
 };
 
-template<typename Key, typename T>
-void red_black_tree<Key, T>::recolor_and_rotate(Node *node) {
-  Node *parent = node->parent;
+template <typename Key, typename T>
+void red_black_tree<Key, T>::recolor_and_rotate(Node* node) {
+  Node* parent = node->parent;
 
-  if (((node->key != root->key) || (node->key == root->key && node->id != root->id))
-      && (parent->color == kRED)) {
-    Node *grand = node->parent->parent;
-    Node *uncle = (is_left_child(parent)) ? grand->right : grand->left;
+  if (((node->key != root->key) ||
+       (node->key == root->key && node->id != root->id)) &&
+      (parent->color == kRED)) {
+    Node* grand = node->parent->parent;
+    Node* uncle = (is_left_child(parent)) ? grand->right : grand->left;
     if (uncle && uncle->color == kRED) {
       handle_recoloring(parent, uncle, grand);
     } else if (is_left_child(parent)) {
@@ -291,21 +295,22 @@ void red_black_tree<Key, T>::recolor_and_rotate(Node *node) {
     } else if (!is_left_child(parent)) {
       handle_right_situations(node, parent, grand);
     }
-
   }
   root->color = kBLACK;
 }
 
-template<typename Key, typename T>
-void red_black_tree<Key, T>::handle_recoloring(Node *parent, Node *uncle, Node *grand) {
+template <typename Key, typename T>
+void red_black_tree<Key, T>::handle_recoloring(Node* parent, Node* uncle,
+                                               Node* grand) {
   swap_colors(uncle);
   swap_colors(parent);
   swap_colors(grand);
   recolor_and_rotate(grand);
 }
 
-template<typename Key, typename T>
-void red_black_tree<Key, T>::handle_left_situations(Node *node, Node *parent, Node *grand) {
+template <typename Key, typename T>
+void red_black_tree<Key, T>::handle_left_situations(Node* node, Node* parent,
+                                                    Node* grand) {
   if (!is_left_child(node)) {
     rotate_left(parent);
     node->color = kBLACK;
@@ -317,8 +322,9 @@ void red_black_tree<Key, T>::handle_left_situations(Node *node, Node *parent, No
   recolor_and_rotate(is_left_child(node) ? parent : grand);
 }
 
-template<typename Key, typename T>
-void red_black_tree<Key, T>::handle_right_situations(Node *node, Node *parent, Node *grand) {
+template <typename Key, typename T>
+void red_black_tree<Key, T>::handle_right_situations(Node* node, Node* parent,
+                                                     Node* grand) {
   if (is_left_child(node)) {
     rotate_right(parent);
     node->color = kBLACK;
@@ -329,9 +335,9 @@ void red_black_tree<Key, T>::handle_right_situations(Node *node, Node *parent, N
   recolor_and_rotate(is_left_child(node) ? grand : parent);
 }
 
-template<typename Key, typename T>
-void red_black_tree<Key, T>::rotate_left(Node *node) {
-  Node *right_node = node->right;
+template <typename Key, typename T>
+void red_black_tree<Key, T>::rotate_left(Node* node) {
+  Node* right_node = node->right;
   node->right = right_node->left;
   if (node->right != nullptr) {
     node->right->parent = node;
@@ -342,9 +348,9 @@ void red_black_tree<Key, T>::rotate_left(Node *node) {
   node->parent = right_node;
 }
 
-template<typename Key, typename T>
-void red_black_tree<Key, T>::rotate_right(Node *node) {
-  Node *left_node = node->left;
+template <typename Key, typename T>
+void red_black_tree<Key, T>::rotate_right(Node* node) {
+  Node* left_node = node->left;
   node->left = left_node->right;
   if (node->left != nullptr) {
     node->left->parent = node;
@@ -355,8 +361,9 @@ void red_black_tree<Key, T>::rotate_right(Node *node) {
   node->parent = left_node;
 }
 
-template<typename Key, typename T>
-void red_black_tree<Key, T>::update_children_of_parents(Node *node, Node *temp_node) {
+template <typename Key, typename T>
+void red_black_tree<Key, T>::update_children_of_parents(Node* node,
+                                                        Node* temp_node) {
   if (node->parent == nullptr) {
     root = temp_node;
   } else if (is_left_child(node)) {
@@ -366,30 +373,30 @@ void red_black_tree<Key, T>::update_children_of_parents(Node *node, Node *temp_n
   }
 }
 
-template<typename Key, typename T>
-void red_black_tree<Key, T>::swap_colors(Node *a) {
+template <typename Key, typename T>
+void red_black_tree<Key, T>::swap_colors(Node* a) {
   a->color = (a->color == kBLACK) ? kRED : kBLACK;
 }
 
-template<typename Key, typename T>
-bool red_black_tree<Key, T>::is_left_child(const Node *node) {
+template <typename Key, typename T>
+bool red_black_tree<Key, T>::is_left_child(const Node* node) {
   bool result = false;
-  if (node->parent && node->parent->left && node->key == node->parent->left->key &&
-      node->id == node->parent->left->id) { // TODO node->parent?
+  if (node->parent && node->parent->left &&
+      node->key == node->parent->left->key &&
+      node->id == node->parent->left->id) {  // TODO node->parent?
     result = true;
   }
   return result;
 }
 
-template<typename Key, typename T>
-typename red_black_tree<Key, T>::Node *red_black_tree<Key, T>::find_local(
-        const Key &value) {
-  Node *current = root;
+template <typename Key, typename T>
+typename red_black_tree<Key, T>::Node* red_black_tree<Key, T>::find_local(
+    const Key& value) {
+  Node* current = root;
   iterator it;
 
   if (current) {
-    while ((current) &&
-           (current->key != value)) {
+    while ((current) && (current->key != value)) {
       if (current->key < value) {
         current = current->right;
       } else {
@@ -400,8 +407,8 @@ typename red_black_tree<Key, T>::Node *red_black_tree<Key, T>::find_local(
   return current;
 };
 
-template<typename Key, typename T>
-bool red_black_tree<Key, T>::contains(const Key &value) {
+template <typename Key, typename T>
+bool red_black_tree<Key, T>::contains(const Key& value) {
   bool result = false;
   if (this->find_local(value) != nullptr) {
     result = true;
@@ -409,9 +416,9 @@ bool red_black_tree<Key, T>::contains(const Key &value) {
   return result;
 }
 
-template<typename Key, typename T>
-typename red_black_tree<Key, T>::Node *red_black_tree<Key, T>::min(Node *node) {
-  Node *current = node;
+template <typename Key, typename T>
+typename red_black_tree<Key, T>::Node* red_black_tree<Key, T>::min(Node* node) {
+  Node* current = node;
   if (current) {
     while (current->left != nullptr) {
       current = current->left;
@@ -420,9 +427,9 @@ typename red_black_tree<Key, T>::Node *red_black_tree<Key, T>::min(Node *node) {
   return current;
 };
 
-template<typename Key, typename T>
-typename red_black_tree<Key, T>::Node *red_black_tree<Key, T>::max(Node *node) {
-  Node *current = node;
+template <typename Key, typename T>
+typename red_black_tree<Key, T>::Node* red_black_tree<Key, T>::max(Node* node) {
+  Node* current = node;
   if (current) {
     while (current->right != nullptr) {
       current = current->right;
@@ -431,7 +438,7 @@ typename red_black_tree<Key, T>::Node *red_black_tree<Key, T>::max(Node *node) {
   return current;
 };
 
-template<typename Key, typename T>
+template <typename Key, typename T>
 void red_black_tree<Key, T>::clear() {
   if (root != nullptr) {
     free(root);
@@ -440,14 +447,14 @@ void red_black_tree<Key, T>::clear() {
   }
 };
 
-template<typename Key, typename T>
-void red_black_tree<Key, T>::swap(red_black_tree &other) {
+template <typename Key, typename T>
+void red_black_tree<Key, T>::swap(red_black_tree& other) {
   std::swap(root, other.root);
   std::swap(count_element, other.count_element);
 };
 
-template<typename Key, typename T>
-void red_black_tree<Key, T>::merge(red_black_tree<Key, T> &other) {
+template <typename Key, typename T>
+void red_black_tree<Key, T>::merge(red_black_tree<Key, T>& other) {
   if (this != &other && other.root != nullptr) {
     iterator it = other.tree_begin();
     s21::vector<std::pair<Key, T>> remainder;
@@ -470,7 +477,7 @@ void red_black_tree<Key, T>::merge(red_black_tree<Key, T> &other) {
   }
 };
 
-template<typename Key, typename T>
+template <typename Key, typename T>
 bool red_black_tree<Key, T>::empty() {
   bool result = true;
   if (root) {
@@ -479,13 +486,13 @@ bool red_black_tree<Key, T>::empty() {
   return result;
 }
 
-template<typename Key, typename T>
+template <typename Key, typename T>
 size_t red_black_tree<Key, T>::size() {
   return count_element;
 }
 
-template<typename Key, typename T>
-size_t red_black_tree<Key, T>::count_elem(const Key &key) {
+template <typename Key, typename T>
+size_t red_black_tree<Key, T>::count_elem(const Key& key) {
   auto start = tree_begin();
   size_t count = 0;
   while (start != this->tree_end()) {
@@ -497,3 +504,5 @@ size_t red_black_tree<Key, T>::count_elem(const Key &key) {
   return count;
 }
 }  // namespace s21
+
+#endif  // S21_CPP_S21_CONTAINERS_SRC_S21_CONTAINERS_S21_RB_TREES_TPP_

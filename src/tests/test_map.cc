@@ -263,15 +263,15 @@ TEST(MapTest, Insert_3) {
 
   EXPECT_EQ(myMap.size(), stdMap.size());
 
-myMap.insert(4, 'd');
-stdMap.insert(std::make_pair(4, 'd'));
+  myMap.insert(4, 'd');
+  stdMap.insert(std::make_pair(4, 'd'));
 
   auto myIt = myMap.begin();
   auto stdIt = stdMap.begin();
 
   for (; myIt != myMap.end(); myIt++, stdIt++) {
-  EXPECT_TRUE((*myIt).first == (*stdIt).first);
-  EXPECT_TRUE((*myIt).second == (*stdIt).second);
+    EXPECT_TRUE((*myIt).first == (*stdIt).first);
+    EXPECT_TRUE((*myIt).second == (*stdIt).second);
   }
 }
 
@@ -343,8 +343,10 @@ TEST(MapTest, Erase_2) {
 }
 
 TEST(MapTest, Erase_3) {
-  s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'}, {4, 'd'}, {5, 'e'}, {6, 'f'}};
-  s21::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'}, {4, 'd'}, {5, 'e'}, {6, 'f'}};
+  s21::map<int, char> myMap{{1, 'a'}, {2, 'b'}, {3, 'c'},
+                            {4, 'd'}, {5, 'e'}, {6, 'f'}};
+  s21::map<int, char> stdMap{{1, 'a'}, {2, 'b'}, {3, 'c'},
+                             {4, 'd'}, {5, 'e'}, {6, 'f'}};
 
   myMap.erase(++myMap.begin());
   stdMap.erase(++stdMap.begin());

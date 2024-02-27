@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef CPP2_S21_CONTAINERS_SRC_INCLUDE_S21_LIST_H_
 #define CPP2_S21_CONTAINERS_SRC_INCLUDE_S21_LIST_H_
 
@@ -130,7 +128,6 @@ class list {
   Node* tail_;
   SizeType size_;
 };
-
 }  // namespace s21
 
 #include "../functions/s21_list.tpp"

@@ -48,7 +48,8 @@ leak:
 	leaks -atExit -- ./s21_containers_tests
 
 clang_format:
-	clang-format -i $(INCLUDE_DIR)/*.h $(TPP_DIR)/*.tpp $(TEST_DIR)/*.cc
+	clang-format -i $(INCLUDE_DIR)/*.h $(TPP_DIR)/*.tpp $(TEST_DIR)/*.cc *.h
+	clang-format -n $(INCLUDE_DIR)/*.h $(TPP_DIR)/*.tpp $(TEST_DIR)/*.cc *.h
 
 gcov_test: clean
 	$(CC) $(GCOV_FLAGS) $(CFLAGS) $(TEST_SRC) $(GTEST_FLAGS) $(LDFLAGS) -o s21_containers_tests
