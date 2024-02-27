@@ -1,5 +1,4 @@
-#ifndef CPP2_S21_CONTAINERS_1_S21_RED_BLACK_FORESTS_H_
-#define CPP2_S21_CONTAINERS_1_S21_RED_BLACK_FORESTS_H_
+#pragma once
 
 #include <initializer_list>
 #include <iostream>
@@ -152,5 +151,3 @@ private:
 }  // namespace s21
 
 #include "../functions/s21_rb_trees.tpp"
-
-#endif  // CPP2_S21_CONTAINERS_1_S21_RED_BLACK_FORESTS_H_

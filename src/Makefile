@@ -34,9 +34,6 @@ endif
 
 all: google_test
 
-tree:
-	gcc $(CFLAGS)  tests/main.cc -lstdc++ -o main.out && ./main.out
-
 gtest_build:
 	cd external/googletest && \
 	rm -rf build && \

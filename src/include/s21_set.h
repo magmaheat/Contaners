@@ -1,5 +1,5 @@
-#ifndef CPP2_S21_CONTAINERS_1_S21_SET_H_
-#define CPP2_S21_CONTAINERS_1_S21_SET_H_
+#pragma once
+
 #include "s21_rb_trees.h"
 
 namespace s21 {
@@ -44,5 +44,3 @@ public:
   }
 };
 }  // namespace s21
-
-#endif  // CPP2_S21_CONTAINERS_1_S21_SET_H_

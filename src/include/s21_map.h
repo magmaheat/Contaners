@@ -1,5 +1,4 @@
-#ifndef CONTAINERS_S21_MAP_H_
-#define CONTAINERS_S21_MAP_H_
+#pragma once
 
 #include "s21_rb_trees.h"
 
@@ -47,7 +46,6 @@ public:
                red_black_tree<key_type, mapped_type>* tree_ref) :
                tree::iterator(node, tree_ref) {
   }
-
 
   std::pair<const Key, T>* operator->() {
     return &this->current->pair;
@@ -130,5 +128,3 @@ public:
   }
 };
 }
-
-#endif //CONTAINERS_S21_MAP_H_

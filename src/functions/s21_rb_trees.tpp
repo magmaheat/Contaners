@@ -1,5 +1,4 @@
-#ifndef CPP2_S21_CONTAINERS_2_S21_RB_TREES_H_
-#define CPP2_S21_CONTAINERS_2_S21_RB_TREES_H_
+#pragma once
 
 #include "../include/s21_vector.h"
 
@@ -498,5 +497,3 @@ size_t red_black_tree<Key, T>::count_elem(const Key &key) {
   return count;
 }
 }  // namespace s21
-
-#endif //CPP2_S21_CONTAINERS_2_S21_RB_TREES_H_
