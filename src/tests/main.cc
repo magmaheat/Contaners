@@ -2,11 +2,11 @@
 #include <map>
 #include <set>
 #include <string>
+#include <vector>
+#include "../include/s21_array.h"
 #include "../include/s21_map.h"
 #include "../include/s21_multiset.h"
 #include "../include/s21_set.h"
-#include "../include/s21_array.h"
-#include <vector>
 
 int main() {
 
@@ -15,5 +15,4 @@ int main() {
 
   std::cout << stdMultiset2.max_size() << std::endl;
   std::cout << ints.max_size() << std::endl;
-
 }

@@ -7,14 +7,14 @@
 #include "../s21_containers.h"
 
 template <typename ValueType>
-bool isEqual(s21::set<ValueType> &s21_set,
-             std::set<ValueType> &std_set_compare);
+bool isEqual(s21::set<ValueType>& s21_set,
+             std::set<ValueType>& std_set_compare);
 
 template <typename ValueType>
-void print(s21::set<ValueType> &s21);
+void print(s21::set<ValueType>& s21);
 
 template <typename ValueType>
-void print(std::set<ValueType> &std);
+void print(std::set<ValueType>& std);
 
 TEST(set, create_1) {
   s21::set<int> s21_set_1 = {5, 7, 2, 0, 23, -5};
@@ -534,8 +534,8 @@ TEST(set, insert_many_3) {
 }
 
 template <typename ValueType>
-bool isEqual(s21::set<ValueType> &s21_set,
-             std::set<ValueType> &std_set_compare) {
+bool isEqual(s21::set<ValueType>& s21_set,
+             std::set<ValueType>& std_set_compare) {
   if (std_set_compare.size() != s21_set.size()) {
     return false;
   }
@@ -550,7 +550,7 @@ bool isEqual(s21::set<ValueType> &s21_set,
 }
 
 template <typename ValueType>
-void print(s21::set<ValueType> &s21_set) {
+void print(s21::set<ValueType>& s21_set) {
   std::cout << "s21_set elements: ";
   auto x = s21_set.begin();
   for (; x != s21_set.end();) {
@@ -562,7 +562,7 @@ void print(s21::set<ValueType> &s21_set) {
 }
 
 template <typename ValueType>
-void print(std::set<ValueType> &std_set) {
+void print(std::set<ValueType>& std_set) {
   std::cout << "std_set elements: ";
   auto x = std_set.begin();
   for (size_t i = 0; i < std_set.size(); ++i) {

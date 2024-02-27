@@ -45,25 +45,25 @@ TEST(MultiSetTest, InitListConsructor_4) {
 
 TEST(MultiSetTest, CopyConstructor_1) {
   s21::multiset<int> myMultiset1 = {1, 2, 3, 4};
-   s21::multiset<int> myMultiset2(myMultiset1);
+  s21::multiset<int> myMultiset2(myMultiset1);
 
   std::multiset<int> stdMultiset1 = {1, 2, 3, 4};
-   std::multiset<int> stdMultiset2(stdMultiset1);
+  std::multiset<int> stdMultiset2(stdMultiset1);
 
-   EXPECT_TRUE(myMultiset2.size() == stdMultiset2.size());
+  EXPECT_TRUE(myMultiset2.size() == stdMultiset2.size());
   EXPECT_TRUE(myMultiset1.size() == stdMultiset1.size());
 }
 
 TEST(MultiSetTest, CopyConstructor_2) {
-   s21::multiset<int> myMultiset1 = {1, 2, 3, 4};
-   s21::multiset<int> myMultiset;
-   myMultiset = myMultiset1;
+  s21::multiset<int> myMultiset1 = {1, 2, 3, 4};
+  s21::multiset<int> myMultiset;
+  myMultiset = myMultiset1;
 
-   std::multiset<int> stdMultiset1 = {1, 2, 3, 4};
-   std::multiset<int> stdMultiset2(stdMultiset1);
+  std::multiset<int> stdMultiset1 = {1, 2, 3, 4};
+  std::multiset<int> stdMultiset2(stdMultiset1);
 
-   EXPECT_EQ(myMultiset.size(), stdMultiset2.size());
-   EXPECT_EQ(myMultiset1.size(), stdMultiset1.size());
+  EXPECT_EQ(myMultiset.size(), stdMultiset2.size());
+  EXPECT_EQ(myMultiset1.size(), stdMultiset1.size());
 }
 
 TEST(MultiSetTest, MoveConstructor_1) {
@@ -101,13 +101,13 @@ TEST(MultiSetTest, MoveConstructor_3) {
 
 TEST(MultiSetTest, AssignmentOperator_1) {
 
- s21::multiset<int> myMultiset1 = {10, 1, 100, 0};
- s21::multiset<int> myMultiset2 = {5, 20, 50};
- std::multiset<int> stdMultiset1 = {10, 1, 100, 0};
- std::multiset<int> stdMultiset2 = {5, 20, 50};
+  s21::multiset<int> myMultiset1 = {10, 1, 100, 0};
+  s21::multiset<int> myMultiset2 = {5, 20, 50};
+  std::multiset<int> stdMultiset1 = {10, 1, 100, 0};
+  std::multiset<int> stdMultiset2 = {5, 20, 50};
 
- myMultiset2 = myMultiset1;
- stdMultiset2 = stdMultiset1;
+  myMultiset2 = myMultiset1;
+  stdMultiset2 = stdMultiset1;
 
   // Проверяем, что размеры мультисетовов совпадают
   EXPECT_EQ(myMultiset2.size(), stdMultiset2.size());
@@ -115,8 +115,8 @@ TEST(MultiSetTest, AssignmentOperator_1) {
   EXPECT_TRUE(myMultiset2.contains(1));
   EXPECT_FALSE(myMultiset2.contains(50));
 
- EXPECT_TRUE(myMultiset2.find(1) != myMultiset1.end());
- EXPECT_FALSE(myMultiset2.find(50) != myMultiset1.end());
+  EXPECT_TRUE(myMultiset2.find(1) != myMultiset1.end());
+  EXPECT_FALSE(myMultiset2.find(50) != myMultiset1.end());
 }
 
 TEST(MultiSetTest, AssignmentOperator_2) {
@@ -141,16 +141,16 @@ TEST(MultiSetTest, AssignmentOperator_2) {
 }
 
 TEST(MultiSetTest, BeginIterstor_1) {
-   s21::multiset<int> myMultiset = {1, 2, 3, 4};
-   s21::multiset<int>::iterator it = myMultiset.begin();
-   EXPECT_EQ(*it, 1);  // Проверяем, что начальный элемент равен 1
+  s21::multiset<int> myMultiset = {1, 2, 3, 4};
+  s21::multiset<int>::iterator it = myMultiset.begin();
+  EXPECT_EQ(*it, 1);  // Проверяем, что начальный элемент равен 1
 }
 
- TEST(MultiSetTest, BeginIterstor_2) {
- s21::multiset<int> myMultiset = {-20, 2, 3, 4};
- std::multiset<int> stdMultiset = {-20, 2, 3, 4};
+TEST(MultiSetTest, BeginIterstor_2) {
+  s21::multiset<int> myMultiset = {-20, 2, 3, 4};
+  std::multiset<int> stdMultiset = {-20, 2, 3, 4};
   EXPECT_TRUE(*myMultiset.begin() == *stdMultiset.begin());
- }
+}
 
 TEST(MultiSetTest, EndIterator_1) {
   s21::multiset<int> myMultiset = {1, 2, 3, 4};
@@ -205,13 +205,13 @@ TEST(MultiSetTest, Size_1) {
 }
 
 TEST(MultiSetTest, ClearOperator_1) {
-   s21::multiset<int> myMultiset = {1, 2, 3, 3, 5, 5, 5};
-   std::multiset<int> stdMultiset = {1, 2, 3, 3, 5, 5, 5};
+  s21::multiset<int> myMultiset = {1, 2, 3, 3, 5, 5, 5};
+  std::multiset<int> stdMultiset = {1, 2, 3, 3, 5, 5, 5};
 
-   myMultiset.clear();
-   stdMultiset.clear();
+  myMultiset.clear();
+  stdMultiset.clear();
 
-   EXPECT_EQ(myMultiset.size(), stdMultiset.size());
+  EXPECT_EQ(myMultiset.size(), stdMultiset.size());
 }
 
 TEST(MultiSetTest, ClearOperator_2) {
@@ -238,26 +238,26 @@ TEST(MultiSetTest, ClearOperator_3) {
 }
 
 TEST(MultiSetTest, Insert_1) {
-   s21::multiset<int> myMultiset;
+  s21::multiset<int> myMultiset;
 
-   auto it1 = myMultiset.insert(5);
-   auto it2 = myMultiset.insert(3);
-   auto it3 = myMultiset.insert(7);
+  auto it1 = myMultiset.insert(5);
+  auto it2 = myMultiset.insert(3);
+  auto it3 = myMultiset.insert(7);
 
-   EXPECT_EQ(*it1, 5);
-   EXPECT_EQ(*it2, 3);
-   EXPECT_EQ(*it3, 7);
+  EXPECT_EQ(*it1, 5);
+  EXPECT_EQ(*it2, 3);
+  EXPECT_EQ(*it3, 7);
 
-   EXPECT_EQ(myMultiset.size(), static_cast<size_t>(3));
+  EXPECT_EQ(myMultiset.size(), static_cast<size_t>(3));
 }
 
- TEST(MultiSetTest, Insert_2) {
-   s21::multiset<double> myMultiset = {5.5, 6.6, 7.7};
-   std::multiset<double> stdMultiset = {5.5, 6.6, 7.7};
-   s21::multiset<double>::iterator myResult = myMultiset.insert(5.5);
-   std::multiset<double>::iterator stdResult = stdMultiset.insert(5.5);
-   EXPECT_TRUE(*myResult == *stdResult);
- }
+TEST(MultiSetTest, Insert_2) {
+  s21::multiset<double> myMultiset = {5.5, 6.6, 7.7};
+  std::multiset<double> stdMultiset = {5.5, 6.6, 7.7};
+  s21::multiset<double>::iterator myResult = myMultiset.insert(5.5);
+  std::multiset<double>::iterator stdResult = stdMultiset.insert(5.5);
+  EXPECT_TRUE(*myResult == *stdResult);
+}
 
 TEST(MultiSetTest, Insert_3) {
   s21::multiset<double> myMultiset = {5.5, 6.6, 7.7};
@@ -271,20 +271,20 @@ TEST(MultiSetTest, Insert_3) {
 }
 
 TEST(MultiSetTest, EraseOperator_1) {
-   s21::multiset<int> myMultiset = {1, 2, 3, 3, 5, 5, 5};
-   std::multiset<int> stdMultiset = {1, 2, 3, 3, 5, 5, 5};
+  s21::multiset<int> myMultiset = {1, 2, 3, 3, 5, 5, 5};
+  std::multiset<int> stdMultiset = {1, 2, 3, 3, 5, 5, 5};
 
-   auto myIt = myMultiset.find(3);
-   if (myIt != myMultiset.end()) {
-       myMultiset.erase(myIt);
-   }
+  auto myIt = myMultiset.find(3);
+  if (myIt != myMultiset.end()) {
+    myMultiset.erase(myIt);
+  }
 
-   auto stdIt = stdMultiset.find(3);
-   if (stdIt != stdMultiset.end()) {
-       stdMultiset.erase(stdIt);
-   }
+  auto stdIt = stdMultiset.find(3);
+  if (stdIt != stdMultiset.end()) {
+    stdMultiset.erase(stdIt);
+  }
 
-   EXPECT_EQ(myMultiset.size(), stdMultiset.size());
+  EXPECT_EQ(myMultiset.size(), stdMultiset.size());
 }
 
 TEST(MultiSetTest, EraseOperator_2) {
@@ -298,16 +298,16 @@ TEST(MultiSetTest, EraseOperator_2) {
 
 TEST(MultiSetTest, SwapOperator_1) {
 
- s21::multiset<int> myMultiset1 = {10, 1, 100, 0};
- s21::multiset<int> myMultiset2 = {5, 20, 50};
- std::multiset<int> stdMultiset1 = {10, 1, 100, 0};
- std::multiset<int> stdMultiset2 = {5, 20, 50};
+  s21::multiset<int> myMultiset1 = {10, 1, 100, 0};
+  s21::multiset<int> myMultiset2 = {5, 20, 50};
+  std::multiset<int> stdMultiset1 = {10, 1, 100, 0};
+  std::multiset<int> stdMultiset2 = {5, 20, 50};
 
- myMultiset1.swap(myMultiset2);
- stdMultiset1.swap(stdMultiset2);
+  myMultiset1.swap(myMultiset2);
+  stdMultiset1.swap(stdMultiset2);
 
- EXPECT_EQ(myMultiset1.size(), stdMultiset1.size());
- EXPECT_EQ(myMultiset2.size(), stdMultiset2.size());
+  EXPECT_EQ(myMultiset1.size(), stdMultiset1.size());
+  EXPECT_EQ(myMultiset2.size(), stdMultiset2.size());
 }
 
 TEST(MultiSetTest, SwapOperator_2) {
@@ -338,7 +338,6 @@ TEST(MultiSetTest, SwapOperator_3) {
   EXPECT_EQ(myMultiset2.size(), stdMultiset2.size());
 }
 
-
 TEST(MultiSetTest, MergeOperator_1) {
 
   s21::multiset<int> myMultiset1 = {10, 1, 100, 0};
@@ -358,19 +357,19 @@ TEST(MultiSetTest, MergeOperator_1) {
 
 TEST(MultiSetTest, MergeOperator_2) {
 
- s21::multiset<int> myMultiset1 = {10, 1, 100, 0};
- s21::multiset<int> myMultiset2 = {10, 10, 5, 20, 20, 50};
- std::multiset<int> stdMultiset1 = {10, 1, 100, 0};
- std::multiset<int> stdMultiset2 = {10, 10, 5, 20, 20,50};
+  s21::multiset<int> myMultiset1 = {10, 1, 100, 0};
+  s21::multiset<int> myMultiset2 = {10, 10, 5, 20, 20, 50};
+  std::multiset<int> stdMultiset1 = {10, 1, 100, 0};
+  std::multiset<int> stdMultiset2 = {10, 10, 5, 20, 20, 50};
 
- myMultiset1.merge(myMultiset2);
- stdMultiset1.merge(stdMultiset2);
+  myMultiset1.merge(myMultiset2);
+  stdMultiset1.merge(stdMultiset2);
 
- EXPECT_EQ(myMultiset1.size(), stdMultiset1.size());
- EXPECT_EQ(myMultiset2.size(), stdMultiset2.size());
+  EXPECT_EQ(myMultiset1.size(), stdMultiset1.size());
+  EXPECT_EQ(myMultiset2.size(), stdMultiset2.size());
 
- EXPECT_TRUE(myMultiset1.find(1) != myMultiset1.end());
- EXPECT_TRUE(myMultiset1.find(50) != myMultiset1.end());
+  EXPECT_TRUE(myMultiset1.find(1) != myMultiset1.end());
+  EXPECT_TRUE(myMultiset1.find(50) != myMultiset1.end());
 }
 
 TEST(MultiSetTest, MergeOperator_3) {
@@ -391,13 +390,13 @@ TEST(MultiSetTest, MergeOperator_3) {
 }
 
 TEST(MultiSetTest, Count_1) {
-   s21::multiset<int> myMultiset = {4, 4, 1};
-   std::multiset<int> stdMultiset = {4, 4, 1};
+  s21::multiset<int> myMultiset = {4, 4, 1};
+  std::multiset<int> stdMultiset = {4, 4, 1};
 
-   // Проверяем количество вхождений различных элементов
-   EXPECT_EQ(myMultiset.count(4), stdMultiset.count(4));
-   EXPECT_EQ(myMultiset.count(1), stdMultiset.count(1));
-   EXPECT_EQ(myMultiset.count(7), stdMultiset.count(7));
+  // Проверяем количество вхождений различных элементов
+  EXPECT_EQ(myMultiset.count(4), stdMultiset.count(4));
+  EXPECT_EQ(myMultiset.count(1), stdMultiset.count(1));
+  EXPECT_EQ(myMultiset.count(7), stdMultiset.count(7));
 
   myMultiset.insert(10);
   stdMultiset.insert(10);
@@ -459,37 +458,37 @@ TEST(MultiSetTest, LowerBound_2) {
   EXPECT_EQ(stdIt, stdMultiset.end());
 }
 
- TEST(MultiSetTest, LowerBound_3) {
-   s21::multiset<int> myMultiset = {2, 2, 5, 6, 7};
-   std::multiset<int> stdMultiset = {2, 2, 5, 6, 7};
-   auto myResult = myMultiset.lower_bound(2);
-   auto stdResult = stdMultiset.lower_bound(2);
-   EXPECT_TRUE(*(++(++myResult)) == *(++(++stdResult)));
- }
+TEST(MultiSetTest, LowerBound_3) {
+  s21::multiset<int> myMultiset = {2, 2, 5, 6, 7};
+  std::multiset<int> stdMultiset = {2, 2, 5, 6, 7};
+  auto myResult = myMultiset.lower_bound(2);
+  auto stdResult = stdMultiset.lower_bound(2);
+  EXPECT_TRUE(*(++(++myResult)) == *(++(++stdResult)));
+}
 
 TEST(MultiSetTest, UpperBound_1) {
   s21::multiset<int> myMultiset;
   std::multiset<int> stdMultiset;
 
-   EXPECT_EQ(myMultiset.upper_bound(42), myMultiset.end());
+  EXPECT_EQ(myMultiset.upper_bound(42), myMultiset.end());
   EXPECT_EQ(stdMultiset.upper_bound(42), stdMultiset.end());
 }
 
 TEST(MultiSetTest, UpperBound_2) {
-   s21::multiset<int> myMultiset = {1, 2, 3, 3, 5, 5, 5};
-   std::multiset<int> stdMultiset = {1, 2, 3, 3, 5, 5, 5};
-   EXPECT_EQ(*myMultiset.upper_bound(2), *stdMultiset.upper_bound(2));
-   EXPECT_EQ(*myMultiset.upper_bound(3), *stdMultiset.upper_bound(3));
-   EXPECT_EQ(myMultiset.upper_bound(6), myMultiset.end());
-   EXPECT_EQ(stdMultiset.upper_bound(6), stdMultiset.end());
- }
+  s21::multiset<int> myMultiset = {1, 2, 3, 3, 5, 5, 5};
+  std::multiset<int> stdMultiset = {1, 2, 3, 3, 5, 5, 5};
+  EXPECT_EQ(*myMultiset.upper_bound(2), *stdMultiset.upper_bound(2));
+  EXPECT_EQ(*myMultiset.upper_bound(3), *stdMultiset.upper_bound(3));
+  EXPECT_EQ(myMultiset.upper_bound(6), myMultiset.end());
+  EXPECT_EQ(stdMultiset.upper_bound(6), stdMultiset.end());
+}
 
 TEST(MultiSetTest, InsertMany_1) {
- s21::multiset<int> myMultiset = {10, 1, 100, 66};
+  s21::multiset<int> myMultiset = {10, 1, 100, 66};
 
- myMultiset.insert_many(1, 2, 3);
+  myMultiset.insert_many(1, 2, 3);
 
- EXPECT_EQ(myMultiset.size(), static_cast<size_t>(7));
+  EXPECT_EQ(myMultiset.size(), static_cast<size_t>(7));
 }
 
 TEST(MultiSetTest, InsertMany_2) {

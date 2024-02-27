@@ -28,7 +28,8 @@ TEST(ArrayTest, InitListConstructor_1) {
   EXPECT_EQ(myArray.size(), stdArray.size());
   EXPECT_EQ(myArray.max_size(), stdArray.max_size());
 
-  for (int i = 0; i < 8; i++) EXPECT_EQ(myArray.at(i), stdArray.at(i));
+  for (int i = 0; i < 8; i++)
+    EXPECT_EQ(myArray.at(i), stdArray.at(i));
 }
 TEST(ArrayTest, InitListConstructor_2) {
   // string
