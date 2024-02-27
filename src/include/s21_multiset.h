@@ -57,12 +57,28 @@ public:
     iterator begin_it(this->find(key));
     iterator end_it = begin_it;
     iterator end_copy = end_it;
-    while (end_it == end_copy) {
-      end_it++;
+    if (begin_it != this->end()) {
+      while (end_it == end_copy) {
+        end_it++;
+      }
     }
     std::pair<iterator, iterator> result(begin_it, end_it);
 
     return result;
+  }
+
+  void merge(multiset<Key> &other) {
+    if (this != &other && other.root != nullptr) {
+      iterator it = other.tree_begin();
+      while (it != other.end()) {
+        this->insert_local(*it, *it, 2);
+        it++;
+      }
+
+      this->free(other.root);
+      other.root = nullptr;
+      other.count_element = 0;
+    }
   }
 
   iterator lower_bound(const Key& key) {
